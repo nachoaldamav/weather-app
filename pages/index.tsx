@@ -1,12 +1,17 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import GenerateGradient from '../components/backgroundGradient'
+import getCurrentPeriod from '../utils/getCurrentPeriod'
 
 export default function HomePage() {
   const [cardPosition, setCardPosition] = useState(-200)
+  const currentPeriod = getCurrentPeriod()
+
+  console.log(currentPeriod)
+
   return (
     <div className="relative flex h-full w-full flex-col p-4">
-      <GenerateGradient type="night" />
+      <GenerateGradient type={currentPeriod} />
       <div className="z-10 flex flex-col">
         <h1 className="text-xl font-bold">Valladolid</h1>
         <h2 className="mt-4 text-9xl font-bold">26º</h2>
