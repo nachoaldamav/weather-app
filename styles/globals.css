@@ -1,16 +1,12 @@
 @tailwind base;
 html {
-  overflow: hidden;
   width: 100%;
 }
-body {
+/* body {
   height: 100%;
   width: 100%;
   position: fixed;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  /* iOS velocity scrolling */
-}
+} */
 @tailwind components;
 #tsparticles {
   position: absolute;

@@ -30,10 +30,10 @@ const gradients = [
 export default function GenerateGradient({ type }: { type: string }) {
   const gradient = gradients.find((g) => g.id === type)
   return (
-    <span className="absolute top-0 left-0 z-[5] h-full w-full rounded-lg">
+    <span className="absolute top-0 left-0 z-[5] h-full w-full md:rounded-lg">
       <AnimatePresence>
         <motion.span
-          className="absolute top-0 left-0 z-[5] h-full w-full rounded-lg"
+          className="absolute top-0 left-0 z-[5] h-full w-full md:rounded-lg"
           animate={{
             background: `linear-gradient(to bottom, ${gradient?.colors.join(
               ', '

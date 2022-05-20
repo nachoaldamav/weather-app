@@ -2,15 +2,28 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import GenerateGradient from '../components/backgroundGradient'
 import getCurrentPeriod from '../utils/getCurrentPeriod'
+import BottomCard from '../components/bottomCard'
+import LocationIcon from '../components/icons/location'
+import { SelectLocationProvider } from '../context/selectLocation'
+import { useSelectLocation } from '../hooks/useSelectLocation'
+import SelectLocationPopUp from '../components/selectLocationPopUp'
 
 export default function HomePage({ city, region, country }: Geo) {
+  const currentPeriod = getCurrentPeriod()
+  const { setConfig } = useSelectLocation()
   const [cardPosition, setCardPosition] = useState(-200)
-  /* const currentPeriod = getCurrentPeriod() */
   const [currentHour, setCurrentHour] = useState(15)
-  const currentPeriod = getCurrentPeriod(currentHour)
+  /* const currentPeriod = getCurrentPeriod(currentHour) */
 
   return (
     <div className="relative flex h-full w-full flex-col p-4">
+      <SelectLocationPopUp />
+      <button
+        className="absolute top-0 right-0 z-50 m-2 rounded border border-secondary bg-primary p-1"
+        onClick={() => setConfig({ isOpen: true })}
+      >
+        <LocationIcon />
+      </button>
       <GenerateGradient type={currentPeriod} />
       <div className="z-10 flex flex-col">
         <h1 className="text-xl font-bold">
@@ -18,24 +31,9 @@ export default function HomePage({ city, region, country }: Geo) {
         </h1>
         <h2 className="mt-4 text-9xl font-bold">26º</h2>
       </div>
-      <motion.div
-        className="fixed bottom-0 left-0 z-20 h-64 w-full"
-        initial={{
-          bottom: -200,
-        }}
-        animate={{
-          bottom: cardPosition,
-        }}
-        transition={{
-          ease: 'easeInOut',
-          duration: 0.5,
-        }}
-      >
-        <div className="mx-auto flex h-full w-[25%] flex-col items-center rounded-t-lg bg-primary">
-          <div
-            className="flex w-full cursor-pointer flex-row justify-between rounded-lg p-4"
-            onClick={() => setCardPosition(cardPosition === 0 ? -200 : 0)}
-          >
+      <BottomCard cardPosition={cardPosition}>
+        <div className="mx-auto flex h-screen w-96 max-w-xs flex-col items-center rounded-t-lg bg-primary md:max-w-sm">
+          <div className="flex w-full cursor-pointer flex-row justify-between rounded-lg p-4">
             <h2 className="text-lg font-bold">Histórico</h2>
             <h3 className="text-lg font-medium">15 días</h3>
           </div>
@@ -58,7 +56,7 @@ export default function HomePage({ city, region, country }: Geo) {
             Cambiar
           </button>
         </div>
-      </motion.div>
+      </BottomCard>
     </div>
   )
 }
