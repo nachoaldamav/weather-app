@@ -6,7 +6,7 @@ import { tsParticles } from 'tsparticles-engine'
 const gradients = [
   {
     id: 'sunset',
-    colors: ['#fcb045', '#fd1d1d', '#833ab4'],
+    colors: ['#d7b88d', '#544e66', '#0d1532'],
     opacity: 0.5,
   },
   {
@@ -35,7 +35,7 @@ export default function GenerateGradient({ type }: { type: string }) {
         <motion.span
           className="absolute top-0 left-0 z-[5] h-full w-full md:rounded-lg"
           animate={{
-            background: `linear-gradient(to bottom, ${gradient?.colors.join(
+            background: `radial-gradient(circle at bottom, ${gradient?.colors.join(
               ', '
             )})`,
             opacity: gradient?.opacity || 0.5,
@@ -49,6 +49,18 @@ export default function GenerateGradient({ type }: { type: string }) {
       <span className="absolute top-0 left-0 h-full w-full">
         <AnimatePresence>{gradient?.decoration}</AnimatePresence>
       </span>
+      <img
+        src="/images/fondo_1.png"
+        className="absolute bottom-0 left-0 z-[6] h-96 w-full opacity-100"
+      />
+      <img
+        src="/images/fondo_2.png"
+        className="absolute bottom-3 left-0 z-[5] h-96 w-full opacity-75"
+      />
+      <img
+        src="/images/fondo_3.png"
+        className="absolute bottom-0 left-0 z-[5] h-96 w-full opacity-40"
+      />
     </span>
   )
 }
