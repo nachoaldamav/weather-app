@@ -6,7 +6,10 @@ import getCurrentPeriod from '../utils/getCurrentPeriod'
 export default function HomePage() {
   const [cardPosition, setCardPosition] = useState(-200)
   /* const currentPeriod = getCurrentPeriod() */
-  const [currentPeriod, setCurrentPeriod] = useState('day')
+  const [currentHour, setCurrentHour] = useState(15)
+  const currentPeriod = getCurrentPeriod(currentHour)
+
+  console.log(currentPeriod)
 
   return (
     <div className="relative flex h-full w-full flex-col p-4">
@@ -28,23 +31,32 @@ export default function HomePage() {
           duration: 0.5,
         }}
       >
-        <div className="mx-auto h-full w-[90%] rounded-t-lg bg-primary">
+        <div className="mx-auto flex h-full w-[90%] flex-col items-center rounded-t-lg bg-primary">
           <div
-            className="flex cursor-pointer flex-row justify-between rounded-lg p-4"
+            className="flex w-full cursor-pointer flex-row justify-between rounded-lg p-4"
             onClick={() => setCardPosition(cardPosition === 0 ? -200 : 0)}
           >
             <h2 className="text-lg font-bold">Histórico</h2>
             <h3 className="text-lg font-medium">15 días</h3>
-            <hr className="my-10 w-full" />
-            <input
-              type="number"
-              className="h-full w-full"
-              value={currentPeriod}
-              onChange={(e) =>
-                setCurrentPeriod(getCurrentPeriod(e.target.valueAsNumber))
-              }
-            />
           </div>
+          <hr className="my-10 w-full" />
+          <input
+            type="number"
+            id="hour"
+            defaultValue={currentHour}
+            className="w-1/2 rounded-md text-black"
+            max={24}
+            min={0}
+          />
+          <button
+            className="mt-4 w-1/2 rounded-lg border text-white"
+            onClick={() => {
+              const hour: any = document.getElementById('hour')
+              setCurrentHour(parseInt(hour?.value))
+            }}
+          >
+            Cambiar
+          </button>
         </div>
       </motion.div>
     </div>

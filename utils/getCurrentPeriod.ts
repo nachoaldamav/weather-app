@@ -12,11 +12,11 @@ const periods = [
   {
     type: 'sunset',
     start: 19,
-    end: 23,
+    end: 24,
   },
   {
     type: 'night',
-    start: 23,
+    start: 0,
     end: 6,
   },
 ]
