@@ -1,19 +1,28 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import GenerateGradient from '../components/backgroundGradient'
 import getCurrentPeriod from '../utils/getCurrentPeriod'
 import BottomCard from '../components/bottomCard'
 import LocationIcon from '../components/icons/location'
-import { SelectLocationProvider } from '../context/selectLocation'
 import { useSelectLocation } from '../hooks/useSelectLocation'
 import SelectLocationPopUp from '../components/selectLocationPopUp'
+import Weather from '../components/weather'
 
 export default function HomePage({ city, region, country }: Geo) {
   const currentPeriod = getCurrentPeriod()
   const { setConfig } = useSelectLocation()
   const [cardPosition, setCardPosition] = useState(-200)
   const [currentHour, setCurrentHour] = useState(15)
+  const [weatherData, setWeatherData] = useState<weatherData>()
   /* const currentPeriod = getCurrentPeriod(currentHour) */
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(`/api/get-weather?location=${city}`)
+      const data = await response.json()
+      setWeatherData(data)
+    }
+    fetchData()
+  }, [city])
 
   return (
     <div className="relative flex h-full w-full flex-col p-4">
@@ -25,17 +34,22 @@ export default function HomePage({ city, region, country }: Geo) {
         <LocationIcon />
       </button>
       <GenerateGradient type={currentPeriod} />
+      <Weather id={weatherData?.current?.condition?.code || 1000} />
+
       <div className="z-10 flex flex-col">
         <h1 className="text-xl font-bold">
           {city}, {region}
         </h1>
-        <h2 className="mt-4 text-9xl font-bold">26º</h2>
+        <h2 className="mt-4 inline-flex items-start text-9xl font-bold">
+          {weatherData?.current.temp_c} <span className="text-[20px]">°C</span>
+        </h2>
       </div>
       <BottomCard cardPosition={cardPosition}>
         <div className="mx-auto flex h-screen w-96 max-w-xs flex-col items-center rounded-t-lg bg-primary md:max-w-sm">
-          <div className="flex w-full cursor-pointer flex-row justify-between rounded-lg p-4">
-            <h2 className="text-lg font-bold">Histórico</h2>
-            <h3 className="text-lg font-medium">15 días</h3>
+          <div className="flex w-full cursor-pointer flex-row items-center justify-between rounded-lg p-4">
+            <h2 className="w-1/3 text-lg font-bold">Histórico</h2>
+            <span className="h-2 w-1/4 rounded-xl bg-white" />
+            <h3 className="w-1/3 text-right text-lg font-medium">15 días</h3>
           </div>
           <hr className="my-10 w-full" />
           <input
@@ -69,4 +83,23 @@ type Geo = {
   city: string
   region: string
   country: string
+}
+
+type weatherData = {
+  location: {
+    name: string
+    region: string
+    country: string
+    lat: number
+    lon: number
+  }
+  current: {
+    temp_c: number
+    temp_f: number
+    condition: {
+      text: string
+      icon: string
+      code: number
+    }
+  }
 }

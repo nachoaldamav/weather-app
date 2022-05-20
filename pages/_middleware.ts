@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(req: NextRequest) {
   const { nextUrl: url, geo } = req
-  const country = geo?.country || 'US'
-  const city = geo?.city || 'San Francisco'
-  const region = geo?.region || 'CA'
+  const country = geo?.country || 'ES'
+  const city = geo?.city || 'Madrid'
+  const region = geo?.region || 'CYL'
 
   url.searchParams.set('country', country)
   url.searchParams.set('city', city)
