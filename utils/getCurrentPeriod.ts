@@ -21,9 +21,9 @@ const periods = [
   },
 ]
 
-export default function getCurrentPeriod() {
-  const now = new Date()
-  const hour = now.getHours()
+export default function getCurrentPeriod(hour: number) {
+  /* const now = new Date()
+  const hour = now.getHours() */
 
   const currentPeriod = periods.find((p) => {
     if (hour >= p.start && hour <= p.end) {

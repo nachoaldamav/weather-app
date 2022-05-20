@@ -5,9 +5,8 @@ import getCurrentPeriod from '../utils/getCurrentPeriod'
 
 export default function HomePage() {
   const [cardPosition, setCardPosition] = useState(-200)
-  const currentPeriod = getCurrentPeriod()
-
-  console.log(currentPeriod)
+  /* const currentPeriod = getCurrentPeriod() */
+  const [currentPeriod, setCurrentPeriod] = useState('day')
 
   return (
     <div className="relative flex h-full w-full flex-col p-4">
@@ -36,6 +35,15 @@ export default function HomePage() {
           >
             <h2 className="text-lg font-bold">Histórico</h2>
             <h3 className="text-lg font-medium">15 días</h3>
+            <hr className="my-10 w-full" />
+            <input
+              type="number"
+              className="h-full w-full"
+              value={currentPeriod}
+              onChange={(e) =>
+                setCurrentPeriod(getCurrentPeriod(e.target.valueAsNumber))
+              }
+            />
           </div>
         </div>
       </motion.div>
