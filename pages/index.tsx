@@ -46,7 +46,7 @@ export default function HomePage({ city, region, country }: Geo) {
         <LocationIcon />
       </button>
       <GenerateGradient type={currentPeriod} />
-      <Weather id={1180 || 1000} />
+      <Weather id={weatherData?.current?.condition?.code || 1000} />
 
       <div className="z-10 flex flex-col">
         <h1 className="text-xl font-bold">
