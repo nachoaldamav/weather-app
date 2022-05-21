@@ -4,6 +4,7 @@ import Particles from 'react-tsparticles'
 import { loadFull } from 'tsparticles'
 import { tsParticles } from 'tsparticles-engine'
 import getRelativeClientRect from '../utils/getRelativeClientRect'
+import Satellite from './satellite'
 
 const gradients = [
   {
@@ -63,6 +64,7 @@ export default function GenerateGradient({ type }: { type: string }) {
       <span className="absolute top-0 left-0 h-full w-full">
         <AnimatePresence>{gradient?.decoration}</AnimatePresence>
       </span>
+      <Satellite />
       <img
         src="/images/fondo_1.png"
         className="absolute bottom-0 left-0 z-[6] h-96 w-full opacity-100"

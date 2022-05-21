@@ -15,7 +15,7 @@ const components = [
     component: <Cloudy />,
   },
   {
-    ids: [1180, 1186, 1189, 1192, 1195, 1198, 1201],
+    ids: [1180, 1183, 1186, 1189, 1192, 1195, 1198, 1201],
     name: 'Lluvia',
     type: 'rain',
     component: <Rain />,
