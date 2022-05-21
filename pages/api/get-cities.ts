@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import cities from '../../utils/cities.json'
+const cities = require('../../utils/cities.json')
 
 export default async function getWeather(
   req: NextApiRequest,
@@ -8,19 +8,19 @@ export default async function getWeather(
   res.setHeader('Content-Type', 'application/json')
   res.setHeader('Cache-Control', 's-maxage=3600')
 
-  const { q } = req.query
+  const { q }: any = req.query
   if (!q) {
     res.status(400).json({ error: 'Missing city' })
     return
   }
 
   // Find similar cities
-  const similarCities = cities.filter((city) =>
+  const similarCities = cities.filter((city: CityData) =>
     city.name.toLowerCase().includes(q.toLowerCase())
   )
 
   // Order by similarity
-  const orderedCities = similarCities.sort((a, b) =>
+  const orderedCities = similarCities.sort((a: CityData, b: CityData) =>
     a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
   )
 

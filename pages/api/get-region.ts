@@ -20,8 +20,9 @@ export default async function getWeather(
 
   if (data.results && data.results.length > 0) {
     // Get types administrative_area_level_1
-    const city = data.results[0].address_components.find((component) =>
-      component.types.includes('administrative_area_level_1')
+    const city = data.results[0].address_components.find(
+      (component: ComponentResponse) =>
+        component.types.includes('administrative_area_level_1')
     )
 
     if (!city) {
@@ -40,4 +41,10 @@ type CityData = {
   name: string
   lat: string
   lng: string
+}
+
+type ComponentResponse = {
+  types: string[]
+  short_name: string
+  long_name: string
 }
