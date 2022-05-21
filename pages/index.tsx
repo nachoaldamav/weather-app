@@ -9,9 +9,9 @@ import Weather from '../components/weather'
 import { useSettings } from '../hooks/useSettings'
 
 export default function HomePage({ city, region, country }: Geo) {
-  const currentPeriod = getCurrentPeriod()
   const { setConfig } = useSelectLocation()
   const { settings, setSettings } = useSettings()
+  const currentPeriod = getCurrentPeriod(settings.timezone || null)
   const [cardPosition, setCardPosition] = useState(-200)
   const [currentHour, setCurrentHour] = useState(15)
   const [weatherData, setWeatherData] = useState<weatherData>()
@@ -46,7 +46,7 @@ export default function HomePage({ city, region, country }: Geo) {
         <LocationIcon />
       </button>
       <GenerateGradient type={currentPeriod} />
-      <Weather id={weatherData?.current?.condition?.code || 1000} />
+      <Weather id={1180 || 1000} />
 
       <div className="z-10 flex flex-col">
         <h1 className="text-xl font-bold">

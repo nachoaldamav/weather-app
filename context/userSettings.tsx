@@ -7,6 +7,7 @@ export const userSettingsContext = createContext({
     country: '',
     lat: 0,
     lon: 0,
+    timezone: '',
     simulate: false,
   },
   setSettings: (e: any) => {},
@@ -23,6 +24,7 @@ export const UserSettingsProvider = ({
     country: '',
     lat: 0,
     lon: 0,
+    timezone: '',
     simulate: false,
   })
 

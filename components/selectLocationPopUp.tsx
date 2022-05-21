@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelectLocation } from '../hooks/useSelectLocation'
 import { useSettings } from '../hooks/useSettings'
+import getTimezone from '../libs/timezone'
 
 export default function SelectLocationPopUp() {
   const { config, setConfig } = useSelectLocation()
@@ -32,10 +33,14 @@ export default function SelectLocationPopUp() {
       `/api/get-region?lat=${data.lat}&lng=${data.lng}`
     )
     const region = await response.json()
+    const timezone = await getTimezone(data.lat, data.lng)
     setSettings({
       city: data.name,
       region: region.short_name,
       country: data.country,
+      lat: data.lat,
+      lon: data.lng,
+      timezone: timezone,
     })
     setConfig({ isOpen: false })
     setQ('')

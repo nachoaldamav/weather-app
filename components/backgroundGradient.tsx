@@ -8,9 +8,14 @@ import Satellite from './satellite'
 
 const gradients = [
   {
-    id: 'sunset',
+    id: 'dusk',
     colors: ['#d7b88d', '#544e66', '#0d1532'],
     opacity: 0.5,
+  },
+  {
+    id: 'sunset',
+    colors: ['#f9ec97', '#cf7c49', '#461819'],
+    opacity: 0.75,
   },
   {
     id: 'night',
@@ -21,7 +26,7 @@ const gradients = [
   {
     id: 'day',
     colors: ['#b7eaff', '#94dfff'],
-    opacity: 0.75,
+    opacity: 0.5,
   },
   {
     id: 'sunrise',
@@ -32,6 +37,8 @@ const gradients = [
 
 export default function GenerateGradient({ type }: { type: string }) {
   const gradient = gradients.find((g) => g.id === type)
+
+  console.log(type)
 
   useEffect(() => {
     const gradientElement = document.getElementById('gradient')

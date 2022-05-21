@@ -14,13 +14,34 @@ canvas {
   overflow-x: hidden;
 }
 
+.container {
+  filter: blur(0px);
+}
+
 .sun {
   width: 50px;
   height: 50px;
   border-radius: 100%;
+  background: radial-gradient(circle at bottom, #ffd700, #ffd700);
   position: absolute;
-  filter: blur(4px);
   top: 0;
   left: 0;
-  offset-path: path('M55,600 C200,1 299,500 370,600');
+  offset-rotate: -20deg;
+  offset-path: path('M55,600 C200,1 199,500 370,600');
+}
+
+.moon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  border-radius: 50%;
+  height: 0.5vw;
+  min-height: 40px;
+  width: 0.5vw;
+  min-width: 40px;
+  mask-size: 80%;
+  mask-repeat: no-repeat;
+  offset-rotate: 0deg;
+  offset-path: path('M55,600 C200,1 299,700 370,600');
 }

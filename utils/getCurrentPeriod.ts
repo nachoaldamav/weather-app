@@ -1,3 +1,6 @@
+import { useSettings } from '../hooks/useSettings'
+import getHours from './getHours'
+
 const periods = [
   {
     type: 'sunrise',
@@ -7,12 +10,17 @@ const periods = [
   {
     type: 'day',
     start: 10,
-    end: 19,
+    end: 17,
   },
   {
     type: 'sunset',
-    start: 19,
-    end: 24,
+    start: 17,
+    end: 20,
+  },
+  {
+    type: 'dusk',
+    start: 20,
+    end: 23,
   },
   {
     type: 'night',
@@ -21,24 +29,32 @@ const periods = [
   },
 ]
 
-export default function getCurrentPeriod() {
-  const now = new Date()
-  const hour = now.getHours()
+export default function getCurrentPeriod(timezone?: string | null) {
+  if (!timezone) {
+    const now = new Date()
+    const hour = now.getHours()
 
-  const currentPeriod = periods.find((p) => {
-    if (hour && hour >= p.start && hour <= p.end) {
-      return true
-    } else {
-      return false
-    }
-  })
+    const currentPeriod = periods.find((p) => {
+      if (hour && hour >= p.start && hour <= p.end) {
+        return true
+      } else {
+        return false
+      }
+    })
 
-  return currentPeriod?.type || 'day'
-}
+    console.log('currentPeriod', currentPeriod)
 
-enum Period {
-  sunrise,
-  day,
-  sunset,
-  night,
+    return currentPeriod?.type || 'day'
+  } else {
+    const hours = getHours(timezone)
+    const currentPeriod = periods.find((p) => {
+      if (hours && hours >= p.start && hours <= p.end) {
+        return true
+      } else {
+        return false
+      }
+    })
+
+    return currentPeriod?.type || 'day'
+  }
 }

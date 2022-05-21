@@ -1,21 +1,30 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { useSettings } from '../hooks/useSettings'
+import getHours from '../utils/getHours'
 import { getTimePer } from '../utils/getTimePer'
 
-const transition = { duration: 2, ease: 'easeInOut' }
+const transition = { duration: 5, ease: 'easeInOut' }
 
 export default function Satellite() {
+  const { settings } = useSettings()
   const [percentage, setPercentage] = useState(0)
+  const [clipPath, setClipPath] = useState(`circle(50% at 50% 50%)`)
+  const currentHour = getHours(settings.timezone)
 
   useEffect(() => {
-    const currentHour = new Date().getHours()
     setPercentage(getTimePer(currentHour))
-  }, [])
+  }, [currentHour])
 
-  console.log(percentage)
+  const isNight = currentHour >= 0 && currentHour <= 6
 
   return (
-    <div className="container">
+    <div
+      className="container"
+      style={{
+        filter: isNight ? 'blur(7px)' : 'blur(17px)',
+      }}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={'100%'}
@@ -34,15 +43,55 @@ export default function Satellite() {
         />
       </svg>
       <motion.div
-        className="sun"
-        style={{
-          background: `radial-gradient(circle at bottom, #ffd700, #ffd700)`,
-          opacity: percentage > 82 ? '0%' : '100%',
+        className={isNight ? 'moon' : 'sun'}
+        style={
+          isNight
+            ? {
+                opacity: calculateOpacity(percentage),
+                maskImage: `url(/images/moon/1.svg)`,
+                WebkitMaskImage: `url(/images/moon/1.svg)`,
+                maskSize: '80%',
+                maskPosition: 'center',
+                WebkitMaskPosition: 'center',
+              }
+            : {
+                opacity: calculateOpacity(percentage),
+                clipPath: clipPath,
+              }
+        }
+        initial={{
+          offsetDistance: '0%',
+          scale: isNight ? 3 : 2,
+          clipPath: `circle(50% at 50% 50%)`,
         }}
-        initial={{ offsetDistance: '0%', scale: 2 }}
-        animate={{ offsetDistance: `${percentage}%`, scale: 2 }}
+        animate={{
+          offsetDistance: `${percentage}%`,
+          scale: isNight ? 3 : 2,
+        }}
         transition={transition}
-      />
+      ></motion.div>
     </div>
   )
+}
+
+function calculateClipPath(percentage: number) {
+  if (percentage >= 60) {
+    const innerPercentage = (40 * (percentage - 60)) / 100
+    console.log(innerPercentage)
+    return `circle(50% at 50% ${innerPercentage}%)`
+  } else {
+    return `circle(50% at 50% 50%)`
+  }
+}
+
+function calculateOpacity(percentage: number) {
+  if (percentage >= 82) {
+    return 0
+  }
+
+  if (percentage <= 50) {
+    return percentage / 50
+  } else {
+    return (100 - percentage) / 50
+  }
 }
