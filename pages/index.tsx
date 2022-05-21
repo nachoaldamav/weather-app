@@ -53,7 +53,7 @@ export default function HomePage({ city, region, country }: Geo) {
           {settings.city}, {settings.region}
         </h1>
         <h2 className="mt-4 inline-flex items-start text-9xl font-bold">
-          {(weatherData && Math.round(weatherData.current.temp_c)) || 0}{' '}
+          {(weatherData && Math.round(weatherData.current?.temp_c)) || 0}{' '}
           <span className="text-[20px]">°C</span>
         </h2>
       </div>
