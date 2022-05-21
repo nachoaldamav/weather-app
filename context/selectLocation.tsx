@@ -1,4 +1,4 @@
-import { createContext, ReactChild, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 export const SelectLocationContext = createContext({
   config: {

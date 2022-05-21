@@ -6,23 +6,35 @@ import LocationIcon from '../components/icons/location'
 import { useSelectLocation } from '../hooks/useSelectLocation'
 import SelectLocationPopUp from '../components/selectLocationPopUp'
 import Weather from '../components/weather'
+import { useSettings } from '../hooks/useSettings'
 
 export default function HomePage({ city, region, country }: Geo) {
   const currentPeriod = getCurrentPeriod()
   const { setConfig } = useSelectLocation()
+  const { settings, setSettings } = useSettings()
   const [cardPosition, setCardPosition] = useState(-200)
   const [currentHour, setCurrentHour] = useState(15)
   const [weatherData, setWeatherData] = useState<weatherData>()
   /* const currentPeriod = getCurrentPeriod(currentHour) */
 
   useEffect(() => {
+    if (settings.city === '') {
+      setSettings({
+        city,
+        region,
+        country,
+      })
+    }
+  }, [city, region, country, setSettings, settings])
+
+  useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/get-weather?location=${city}`)
+      const response = await fetch(`/api/get-weather?location=${settings.city}`)
       const data = await response.json()
       setWeatherData(data)
     }
     fetchData()
-  }, [city])
+  }, [settings])
 
   return (
     <div className="relative flex h-full w-full flex-col p-4">
@@ -38,7 +50,7 @@ export default function HomePage({ city, region, country }: Geo) {
 
       <div className="z-10 flex flex-col">
         <h1 className="text-xl font-bold">
-          {city}, {region}
+          {settings.city}, {settings.region}
         </h1>
         <h2 className="mt-4 inline-flex items-start text-9xl font-bold">
           {weatherData?.current?.temp_c || 0}{' '}
