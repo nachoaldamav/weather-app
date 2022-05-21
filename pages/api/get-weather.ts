@@ -21,10 +21,9 @@ export default async function getWeather(
 
   try {
     const response = await rapidInstance.get('current.json', options)
-    console.log(options)
     res.status(200).json(response.data)
   } catch (error) {
-    console.log(options)
+    console.log('Request failed with options: ', options)
     res.status(500).json({ error })
   }
 }

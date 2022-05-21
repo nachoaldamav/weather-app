@@ -41,7 +41,8 @@ export default function HomePage({ city, region, country }: Geo) {
           {city}, {region}
         </h1>
         <h2 className="mt-4 inline-flex items-start text-9xl font-bold">
-          {weatherData?.current.temp_c} <span className="text-[20px]">°C</span>
+          {weatherData?.current?.temp_c || 0}{' '}
+          <span className="text-[20px]">°C</span>
         </h2>
       </div>
       <BottomCard cardPosition={cardPosition}>

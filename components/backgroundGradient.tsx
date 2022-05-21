@@ -1,7 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect } from 'react'
 import Particles from 'react-tsparticles'
 import { loadFull } from 'tsparticles'
 import { tsParticles } from 'tsparticles-engine'
+import getRelativeClientRect from '../utils/getRelativeClientRect'
 
 const gradients = [
   {
@@ -29,8 +31,20 @@ const gradients = [
 
 export default function GenerateGradient({ type }: { type: string }) {
   const gradient = gradients.find((g) => g.id === type)
+
+  useEffect(() => {
+    const gradientElement = document.getElementById('gradient')
+    if (gradientElement) {
+      const data = getRelativeClientRect(gradientElement)
+      console.log(data)
+    }
+  }, [])
+
   return (
-    <span className="absolute top-0 left-0 z-[5] h-full w-full md:rounded-lg">
+    <span
+      className="absolute top-0 left-0 z-[5] h-full w-full md:rounded-lg"
+      id="gradient"
+    >
       <AnimatePresence>
         <motion.span
           className="absolute top-0 left-0 z-[5] h-full w-full md:rounded-lg"
