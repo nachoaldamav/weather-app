@@ -14,15 +14,10 @@ canvas {
   overflow-x: hidden;
 }
 
-.container {
-  filter: blur(0px);
-}
-
 .sun {
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  background: radial-gradient(circle at bottom, #ffd700, #ffd700);
   position: absolute;
   top: 0;
   left: 0;
@@ -44,4 +39,45 @@ canvas {
   mask-repeat: no-repeat;
   offset-rotate: 0deg;
   offset-path: path('M55,600 C200,1 299,700 370,600');
+}
+
+.fog-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.fog-img {
+  position: absolute;
+  height: 100%;
+  width: 300vw;
+  z-index: 2;
+}
+
+.fog-img-first {
+  background: url('/images/fog-1.png');
+  background-repeat: repeat-x;
+  background-size: contain;
+  background-position: center;
+  animation: marquee 60s linear infinite;
+}
+
+.fog-img-second {
+  background: url('/images/fog-2.png');
+  background-repeat: repeat-x;
+  background-size: contain;
+  background-position: center;
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-200vw, 0, 0);
+  }
 }
