@@ -9,6 +9,7 @@ import Weather from '../components/weather'
 import { useSettings } from '../hooks/useSettings'
 import Satellite from '../components/satellite'
 import Chevron from '../components/icons/chevron'
+import InstallPrompt from '../components/installPrompt'
 
 export default function HomePage({ city, region, country }: Geo) {
   const { config, setConfig } = useSelectLocation()
@@ -43,6 +44,8 @@ export default function HomePage({ city, region, country }: Geo) {
       return true
     } else if (currentPeriod === 'dusk') {
       return true
+    } else if (currentPeriod === 'sunrise') {
+      return true
     } else {
       return false
     }
@@ -51,6 +54,7 @@ export default function HomePage({ city, region, country }: Geo) {
   return (
     <div className="relative flex h-full w-full flex-col p-4">
       <SelectLocationPopUp />
+      <InstallPrompt />
       <span className="absolute top-0 left-0 z-50 inline-flex w-full items-center justify-center pt-2 text-lg text-white">
         <button
           className={
