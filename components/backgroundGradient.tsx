@@ -70,7 +70,7 @@ export default function GenerateGradient({ type }: { type: string }) {
       </AnimatePresence>
       <AnimatePresence>
         <motion.span
-          className="absolute top-0 left-0 z-[7] h-full w-full md:rounded-lg"
+          className="absolute top-0 left-0 z-[8] h-full w-full md:rounded-lg"
           animate={{
             background: `radial-gradient(circle at center, ${gradient?.colors.join(
               ', '
@@ -90,7 +90,7 @@ export default function GenerateGradient({ type }: { type: string }) {
       </span>
       <img
         src="/images/fondo_1.png"
-        className="absolute bottom-0 left-0 z-[6] h-96 w-full opacity-100"
+        className="absolute bottom-0 left-0 z-[7] h-96 w-full opacity-100"
       />
       <img
         src="/images/fondo_2.png"

@@ -24,7 +24,7 @@ export default function Satellite() {
       style={{
         filter: isNight ? 'blur(7px)' : 'blur(10px)',
         opacity: isNight ? 0.5 : 1,
-        zIndex: 10,
+        zIndex: 4,
       }}
     >
       <svg
