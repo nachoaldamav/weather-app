@@ -8,12 +8,12 @@ import SelectLocationPopUp from '../components/selectLocationPopUp'
 import Weather from '../components/weather'
 import { useSettings } from '../hooks/useSettings'
 import Satellite from '../components/satellite'
+import Chevron from '../components/icons/chevron'
 
 export default function HomePage({ city, region, country }: Geo) {
-  const { setConfig } = useSelectLocation()
+  const { config, setConfig } = useSelectLocation()
   const { settings, setSettings } = useSettings()
   const currentPeriod = getCurrentPeriod(settings.timezone || null)
-  const [currentHour, setCurrentHour] = useState(15)
   const [weatherData, setWeatherData] = useState<weatherData>()
   /* const currentPeriod = getCurrentPeriod(currentHour) */
 
@@ -36,24 +36,46 @@ export default function HomePage({ city, region, country }: Geo) {
     fetchData()
   }, [settings])
 
+  const isDark = () => {
+    if (currentPeriod === 'night') {
+      return true
+    } else if (currentPeriod === 'sunset') {
+      return true
+    } else if (currentPeriod === 'dusk') {
+      return true
+    } else {
+      return false
+    }
+  }
+
   return (
     <div className="relative flex h-full w-full flex-col p-4">
       <SelectLocationPopUp />
-      <button
-        className="absolute top-0 right-0 z-50 m-2 rounded border border-secondary bg-primary p-1"
-        onClick={() => setConfig({ isOpen: true })}
-      >
-        <LocationIcon />
-      </button>
+      <span className="absolute top-0 left-0 z-50 inline-flex w-full items-center justify-center pt-2 text-lg text-white">
+        <button
+          className={
+            !isDark()
+              ? 'inline-flex h-full w-fit items-center justify-center font-bold text-secondary'
+              : 'inline-flex h-full w-fit items-center justify-center font-bold text-white'
+          }
+          onClick={() => setConfig({ isOpen: true })}
+        >
+          {settings.city}, {settings.country}
+          <Chevron rotation={config.isOpen ? 180 : 0} />
+        </button>
+      </span>
       <Satellite />
       <GenerateGradient type={currentPeriod} />
-      <Weather id={1180} />
+      <Weather id={weatherData?.current?.condition?.code || 1000} />
 
-      <div className="z-10 flex flex-col">
-        <h1 className="text-xl font-bold">
-          {settings.city}, {settings.region}
-        </h1>
-        <h2 className="mt-4 inline-flex items-start text-9xl font-bold">
+      <div
+        className={
+          !isDark()
+            ? 'z-10 flex flex-col text-secondary'
+            : 'z-10 flex flex-col text-white'
+        }
+      >
+        <h2 className="mt-10 inline-flex w-full items-start justify-center text-center text-9xl font-bold">
           {(weatherData && Math.round(weatherData.current?.temp_c)) || 0}{' '}
           <span className="text-[20px]">°C</span>
         </h2>
@@ -66,23 +88,6 @@ export default function HomePage({ city, region, country }: Geo) {
             <h3 className="w-1/3 text-right text-lg font-medium">15 días</h3>
           </div>
           <hr className="my-10 w-full" />
-          <input
-            type="number"
-            id="hour"
-            defaultValue={currentHour}
-            className="w-1/2 rounded-md text-black"
-            max={24}
-            min={0}
-          />
-          <button
-            className="mt-4 w-1/2 rounded-lg border text-white"
-            onClick={() => {
-              const hour: any = document.getElementById('hour')
-              setCurrentHour(parseInt(hour?.value))
-            }}
-          >
-            Cambiar
-          </button>
         </div>
       </BottomCard>
     </div>
