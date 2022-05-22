@@ -1,7 +1,10 @@
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useSelectLocation } from '../hooks/useSelectLocation'
 import { useSettings } from '../hooks/useSettings'
 import getTimezone from '../libs/timezone'
+import LocationIcon from './icons/location'
+import MapIcon from './icons/map'
 
 export default function SelectLocationPopUp() {
   const { config, setConfig } = useSelectLocation()
@@ -54,15 +57,39 @@ export default function SelectLocationPopUp() {
         onClick={() => setConfig({ isOpen: false })}
       />
       <div className="absolute inset-0 z-[99] mx-auto my-auto h-3/4 w-5/6">
-        <div className="absolute flex h-full w-full flex-col items-center justify-start rounded-xl bg-primary py-2 opacity-100">
+        <div className="absolute flex h-full w-full flex-col items-center justify-start gap-2 rounded-xl bg-primary py-2 opacity-100">
           <h1 className="text-xl font-bold">Selecciona una ciudad</h1>
-          <input
-            className="w-3/4 rounded-lg border border-gray-500 bg-secondary p-2"
-            type="text"
-            placeholder="Busca una ciudad"
-            value={q}
-            onChange={handleChange}
-          />
+          <div className="flex w-full flex-row items-center justify-center gap-2 px-2">
+            <input
+              className="w-3/4 rounded-lg border border-gray-500 bg-secondary p-2"
+              type="text"
+              placeholder="Busca una ciudad"
+              value={q}
+              onChange={handleChange}
+            />
+            <button
+              className="w-fit rounded-lg border border-gray-500 bg-secondary p-2"
+              onClick={() => {
+                // Get current location
+                navigator.geolocation.getCurrentPosition(
+                  (position) => {
+                    const { latitude, longitude } = position.coords
+                    console.log(latitude, longitude)
+                  },
+                  (error) => {
+                    console.log(error)
+                  }
+                )
+              }}
+            >
+              <LocationIcon />
+            </button>
+            <Link href={'/map'}>
+              <a className="w-fit rounded-lg border border-gray-500 bg-secondary p-2">
+                <MapIcon />
+              </a>
+            </Link>
+          </div>
           <div className="flex w-full flex-col items-start justify-start gap-2 overflow-y-auto px-4 pt-3 ">
             {results?.map((result: any, index: number) => (
               <button

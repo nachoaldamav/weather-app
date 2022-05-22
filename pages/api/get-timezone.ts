@@ -7,8 +7,8 @@ export default async function getWeather(
   res.setHeader('Content-Type', 'application/json')
   res.setHeader('Cache-Control', 's-maxage=3600')
 
-  const { lat, lng } = req.query
-  if (!lat || !lng) {
+  const { latlng } = req.query
+  if (!latlng) {
     res.status(400).json({ error: 'Missing coordinates' })
     return
   }
@@ -16,10 +16,8 @@ export default async function getWeather(
   const timestamp = new Date().getTime()
   const milliseconds = timestamp % 1000
 
-  console.log(`${timestamp} - ${lat}, ${lng}`)
-
   const response = await fetch(
-    `https://maps.googleapis.com/maps/api/timezone/json?location=${lat}%2C${lng}&timestamp=${
+    `https://maps.googleapis.com/maps/api/timezone/json?location=${latlng}&timestamp=${
       milliseconds + 1000
     }&key=${process.env.GOOGLE_MAPS_KEY}`
   )
