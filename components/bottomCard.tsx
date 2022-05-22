@@ -4,10 +4,8 @@ import { useRef } from 'react'
 
 export default function BottomCard({
   children,
-  cardPosition,
 }: {
   children: React.ReactNode
-  cardPosition: number
 }) {
   const constraintsRef = useRef(null)
   const [position, setPosition] = useState(325)

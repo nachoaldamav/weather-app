@@ -7,12 +7,12 @@ import { useSelectLocation } from '../hooks/useSelectLocation'
 import SelectLocationPopUp from '../components/selectLocationPopUp'
 import Weather from '../components/weather'
 import { useSettings } from '../hooks/useSettings'
+import Satellite from '../components/satellite'
 
 export default function HomePage({ city, region, country }: Geo) {
   const { setConfig } = useSelectLocation()
   const { settings, setSettings } = useSettings()
   const currentPeriod = getCurrentPeriod(settings.timezone || null)
-  const [cardPosition, setCardPosition] = useState(-200)
   const [currentHour, setCurrentHour] = useState(15)
   const [weatherData, setWeatherData] = useState<weatherData>()
   /* const currentPeriod = getCurrentPeriod(currentHour) */
@@ -45,8 +45,9 @@ export default function HomePage({ city, region, country }: Geo) {
       >
         <LocationIcon />
       </button>
+      <Satellite />
       <GenerateGradient type={currentPeriod} />
-      <Weather id={weatherData?.current?.condition?.code || 1000} />
+      <Weather id={1180} />
 
       <div className="z-10 flex flex-col">
         <h1 className="text-xl font-bold">
@@ -57,7 +58,7 @@ export default function HomePage({ city, region, country }: Geo) {
           <span className="text-[20px]">°C</span>
         </h2>
       </div>
-      <BottomCard cardPosition={cardPosition}>
+      <BottomCard>
         <div className="mx-auto flex h-screen w-96 max-w-xs flex-col items-center rounded-t-lg bg-primary md:max-w-sm">
           <div className="flex w-full cursor-pointer flex-row items-center justify-between rounded-lg p-4">
             <h2 className="w-1/3 text-lg font-bold">Histórico</h2>

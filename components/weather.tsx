@@ -1,5 +1,6 @@
 import { AnimatePresence } from 'framer-motion'
 import Cloudy from './weatherComponents/cloudy'
+import Misty from './weatherComponents/mist'
 import Rain from './weatherComponents/rain'
 
 const components = [
@@ -19,6 +20,12 @@ const components = [
     name: 'Lluvia',
     type: 'rain',
     component: <Rain />,
+  },
+  {
+    ids: [1030],
+    name: 'Niebla',
+    type: 'misty',
+    component: <Misty />,
   },
 ]
 

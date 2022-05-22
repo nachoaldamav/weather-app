@@ -20,9 +20,11 @@ export default function Satellite() {
 
   return (
     <div
-      className="container"
+      className="container absolute inset-0 h-full w-full"
       style={{
-        filter: isNight ? 'blur(7px)' : 'blur(17px)',
+        filter: isNight ? 'blur(7px)' : 'blur(10px)',
+        opacity: isNight ? 0.5 : 1,
+        zIndex: 10,
       }}
     >
       <svg
@@ -57,6 +59,14 @@ export default function Satellite() {
             : {
                 opacity: calculateOpacity(percentage),
                 clipPath: clipPath,
+                background:
+                  currentHour >= 18
+                    ? 'radial-gradient(circle at bottom, #ffd700, #ffd700)'
+                    : 'radial-gradient(circle at bottom, #f4f5f5, #f4f5f5)',
+                boxShadow:
+                  currentHour >= 18
+                    ? '0px 0px 0px 0px #ffd700'
+                    : '0 0 50px 0px yellow, 0 0 100px 0 white',
               }
         }
         initial={{
@@ -92,6 +102,6 @@ function calculateOpacity(percentage: number) {
   if (percentage <= 50) {
     return percentage / 50
   } else {
-    return (100 - percentage) / 50
+    return (100 - percentage) / 2
   }
 }

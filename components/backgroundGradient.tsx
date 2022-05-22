@@ -4,7 +4,6 @@ import Particles from 'react-tsparticles'
 import { loadFull } from 'tsparticles'
 import { tsParticles } from 'tsparticles-engine'
 import getRelativeClientRect from '../utils/getRelativeClientRect'
-import Satellite from './satellite'
 
 const gradients = [
   {
@@ -22,16 +21,17 @@ const gradients = [
     colors: ['#020024', '#090979', '#00d4ff'],
     decoration: <Stars />,
     opacity: 0.5,
+    n_opacity: 0.05,
   },
   {
     id: 'day',
     colors: ['#b7eaff', '#94dfff'],
-    opacity: 0.5,
+    opacity: 1,
   },
   {
     id: 'sunrise',
-    colors: ['#757abf', '#8583be', '#eab0d1'],
-    opacity: 0.5,
+    colors: ['#e7e7cc', '#4d92b4', '#0f3d60'],
+    opacity: 1,
   },
 ]
 
@@ -50,12 +50,12 @@ export default function GenerateGradient({ type }: { type: string }) {
 
   return (
     <span
-      className="absolute top-0 left-0 z-[5] h-full w-full md:rounded-lg"
+      className="absolute top-0 left-0 h-full w-full md:rounded-lg"
       id="gradient"
     >
-      <AnimatePresence>
+      <AnimatePresence key={gradient?.id}>
         <motion.span
-          className="absolute top-0 left-0 z-[5] h-full w-full md:rounded-lg"
+          className="absolute top-0 left-0 z-[0] h-full w-full md:rounded-lg"
           animate={{
             background: `radial-gradient(circle at bottom, ${gradient?.colors.join(
               ', '
@@ -68,10 +68,26 @@ export default function GenerateGradient({ type }: { type: string }) {
           }}
         ></motion.span>
       </AnimatePresence>
+      <AnimatePresence>
+        <motion.span
+          className="absolute top-0 left-0 z-[7] h-full w-full md:rounded-lg"
+          animate={{
+            background: `radial-gradient(circle at center, ${gradient?.colors.join(
+              ', '
+            )})`,
+            opacity: gradient?.n_opacity || 0.2,
+          }}
+          transition={{
+            ease: 'easeInOut',
+            duration: 1,
+          }}
+        ></motion.span>
+      </AnimatePresence>
       <span className="absolute top-0 left-0 h-full w-full">
-        <AnimatePresence>{gradient?.decoration}</AnimatePresence>
+        <AnimatePresence key={'decoration'}>
+          {gradient?.decoration}
+        </AnimatePresence>
       </span>
-      <Satellite />
       <img
         src="/images/fondo_1.png"
         className="absolute bottom-0 left-0 z-[6] h-96 w-full opacity-100"

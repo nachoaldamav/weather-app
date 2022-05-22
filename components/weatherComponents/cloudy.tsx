@@ -1,9 +1,35 @@
+import Head from 'next/head'
 import WeatherLayout from './weatherLayout'
 
 export default function Cloudy() {
   return (
     <WeatherLayout>
-      <div className="relative h-full w-full">
+      <Head>
+        <link
+          rel="apple-touch-icon"
+          sizes="76x76"
+          href="/icons/cloudy/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/icons/cloudy/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/icons/cloudy/favicon-16x16.png"
+        />
+        <link
+          rel="mask-icon"
+          href="/icons/cloudy/safari-pinned-tab.svg"
+          color="#5bbad5"
+        />
+        <link rel="shortcut icon" href="/icons/cloudy/favicon.ico" />
+      </Head>
+      <div className="relative h-full w-full opacity-75">
         <img
           src="/images/clouds/1.png"
           className="relative"
