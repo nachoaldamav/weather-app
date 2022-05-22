@@ -4,6 +4,7 @@ import Particles from 'react-tsparticles'
 import { loadFull } from 'tsparticles'
 import { tsParticles } from 'tsparticles-engine'
 import Head from 'next/head'
+import Image from 'next/image'
 
 export default function Rain() {
   return (
@@ -35,24 +36,38 @@ export default function Rain() {
       </Head>
       <div className="relative h-full w-full">
         <span className="absolute inset-0 h-full w-full bg-black bg-opacity-40" />
-        <img
-          src="/images/clouds/1.png"
-          className="relative opacity-75"
+        <div className="absolute top-0 left-0 h-full w-full">
+          <Image
+            src="/images/clouds/1.png"
+            className="relative"
+            style={{
+              top: '125px',
+              left: '20px',
+            }}
+            alt="cloudy-1"
+            width={600}
+            height={300}
+            layout="responsive"
+          />
+        </div>
+        <div
+          className="absolute"
           style={{
-            top: '50px',
-            left: '20px',
+            top: '150px',
+            left: '5px',
+            height: 'auto',
+            width: '70%',
           }}
-          alt="rainy-1"
-        />
-        <img
-          src="/images/clouds/2.png"
-          className="relative opacity-75"
-          style={{
-            marginTop: '-200px',
-            marginLeft: '0px',
-          }}
-          alt="rainy-2"
-        />
+        >
+          <Image
+            src="/images/clouds/2.png"
+            alt="cloudy-2"
+            width={600}
+            height={300}
+            layout="responsive"
+            objectFit="contain"
+          />
+        </div>
         <RainParticles />
       </div>
     </WeatherLayout>
