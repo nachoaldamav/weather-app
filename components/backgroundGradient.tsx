@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect } from 'react'
 import Particles from 'react-tsparticles'
@@ -10,6 +11,7 @@ const gradients = [
     id: 'dusk',
     colors: ['#d7b88d', '#544e66', '#0d1532'],
     opacity: 0.5,
+    n_opacity: 0,
   },
   {
     id: 'sunset',
@@ -22,6 +24,7 @@ const gradients = [
     decoration: <Stars />,
     opacity: 0.5,
     n_opacity: 0.05,
+    props_opacity: [1, 1, 1],
   },
   {
     id: 'day',
@@ -30,15 +33,13 @@ const gradients = [
   },
   {
     id: 'sunrise',
-    colors: ['#e7e7cc', '#4d92b4', '#0f3d60'],
+    colors: ['#ed763e', '#9f5c6e', '#333462'],
     opacity: 1,
   },
 ]
 
 export default function GenerateGradient({ type }: { type: string }) {
   const gradient = gradients.find((g) => g.id === type)
-
-  console.log(type)
 
   useEffect(() => {
     const gradientElement = document.getElementById('gradient')
@@ -75,7 +76,7 @@ export default function GenerateGradient({ type }: { type: string }) {
             background: `radial-gradient(circle at center, ${gradient?.colors.join(
               ', '
             )})`,
-            opacity: gradient?.n_opacity || 0.2,
+            opacity: gradient?.n_opacity || 0.01,
           }}
           transition={{
             ease: 'easeInOut',
@@ -90,15 +91,29 @@ export default function GenerateGradient({ type }: { type: string }) {
       </span>
       <img
         src="/images/fondo_1.png"
-        className="absolute bottom-0 left-0 z-[7] h-96 w-full opacity-100"
+        className="absolute bottom-0 left-0 z-[7] h-96 w-full"
+        style={{
+          opacity: (gradient?.props_opacity && gradient?.props_opacity[0]) || 1,
+        }}
+        alt="fondo_1"
       />
       <img
         src="/images/fondo_2.png"
-        className="absolute bottom-3 left-0 z-[5] h-96 w-full opacity-75"
+        className="absolute bottom-3 left-0 z-[5] h-96 w-full"
+        style={{
+          opacity:
+            (gradient?.props_opacity && gradient?.props_opacity[1]) || 0.75,
+        }}
+        alt="fondo_2"
       />
       <img
         src="/images/fondo_3.png"
-        className="absolute bottom-0 left-0 z-[5] h-96 w-full opacity-40"
+        className="absolute bottom-0 left-0 z-[5] h-96 w-full"
+        style={{
+          opacity:
+            (gradient?.props_opacity && gradient?.props_opacity[2]) || 0.4,
+        }}
+        alt="fondo_3"
       />
     </span>
   )
