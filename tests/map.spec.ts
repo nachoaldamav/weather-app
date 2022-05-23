@@ -25,8 +25,8 @@ test('Select location from controller', async ({ page }) => {
 
   // Wait for the page to reload
   await page.waitForNavigation({ waitUntil: 'networkidle' })
-  const localStorage: any = await page.evaluate(() => {
-    return JSON.parse(localStorage.getItem('weather_settings'))
-  })
-  expect(localStorage.city).toBe('Valladolid')
+  const title = await page.waitForSelector(
+    '[data-testid="select-location-button"]'
+  )
+  expect(await title.evaluate((e) => e.textContent)).toContain('Valladolid')
 })
