@@ -3,11 +3,14 @@ import { useEffect, useState } from 'react'
 import { useSelectLocation } from '../hooks/useSelectLocation'
 import { useSettings } from '../hooks/useSettings'
 import getTimezone from '../libs/timezone'
+import getCity from '../utils/getCity'
+import LoadingIcon from './icons/loading'
 import LocationIcon from './icons/location'
 import MapIcon from './icons/map'
 
 export default function SelectLocationPopUp() {
   const { config, setConfig } = useSelectLocation()
+  const [loadingLocation, setLoadingLocation] = useState(false)
   const { settings, setSettings } = useSettings()
   const [q, setQ] = useState('')
   const [results, setResults] = useState<any>()
@@ -50,6 +53,29 @@ export default function SelectLocationPopUp() {
     setResults([])
   }
 
+  async function getCurrentPosition() {
+    setLoadingLocation(true)
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const { latitude, longitude } = position.coords
+      const data = await getCity(`${latitude},${longitude}`)
+      const timezone = await getTimezone(
+        latitude.toString(),
+        longitude.toString()
+      )
+
+      setSettings({
+        city: data.city,
+        region: data.region,
+        country: data.country,
+        lat: latitude,
+        lon: longitude,
+        timezone: timezone,
+      })
+      setLoadingLocation(false)
+      setConfig({ isOpen: false })
+    })
+  }
+
   return config.isOpen ? (
     <div className="absolute top-0 left-0 z-[90] h-full w-full bg-primary bg-opacity-40">
       <span
@@ -69,20 +95,9 @@ export default function SelectLocationPopUp() {
             />
             <button
               className="w-fit rounded-lg border border-gray-500 bg-secondary p-2"
-              onClick={() => {
-                // Get current location
-                navigator.geolocation.getCurrentPosition(
-                  (position) => {
-                    const { latitude, longitude } = position.coords
-                    console.log(latitude, longitude)
-                  },
-                  (error) => {
-                    console.log(error)
-                  }
-                )
-              }}
+              onClick={() => getCurrentPosition()}
             >
-              <LocationIcon />
+              {loadingLocation ? <LoadingIcon /> : <LocationIcon />}
             </button>
             <Link href={'/map'}>
               <a className="w-fit rounded-lg border border-gray-500 bg-secondary p-2">
