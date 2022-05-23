@@ -42,14 +42,6 @@ const gradients = [
 export default function GenerateGradient({ type }: { type: string }) {
   const gradient = gradients.find((g) => g.id === type)
 
-  useEffect(() => {
-    const gradientElement = document.getElementById('gradient')
-    if (gradientElement) {
-      const data = getRelativeClientRect(gradientElement)
-      console.log(data)
-    }
-  }, [])
-
   return (
     <span
       className="absolute top-0 left-0 h-full w-full md:rounded-lg"
@@ -121,8 +113,6 @@ export default function GenerateGradient({ type }: { type: string }) {
 
 function Stars() {
   const particlesInit = async (main: any) => {
-    console.log(main)
-
     // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
     // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
     // starting from v2 you can add only the features you need reducing the bundle size

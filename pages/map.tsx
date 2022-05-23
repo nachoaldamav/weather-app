@@ -60,7 +60,6 @@ export default function Map({ coord }: { coord: Coordinates }) {
     map.addControl(geoCoder, 'top-right')
 
     geoCoder.on('result', (e) => {
-      console.log('Resultado', e)
       setCoordinates({
         lat: e.result.center[1],
         lng: e.result.center[0],
@@ -80,8 +79,6 @@ export default function Map({ coord }: { coord: Coordinates }) {
       coordinates.lat.toString(),
       coordinates.lng.toString()
     )
-
-    console.log('timezone', timezone)
 
     setSettings({
       city: data.city,

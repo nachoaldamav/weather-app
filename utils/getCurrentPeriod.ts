@@ -42,8 +42,6 @@ export default function getCurrentPeriod(timezone?: string | null) {
       }
     })
 
-    console.log('currentPeriod', currentPeriod)
-
     return currentPeriod?.type || 'day'
   } else {
     const hours = getHours(timezone)

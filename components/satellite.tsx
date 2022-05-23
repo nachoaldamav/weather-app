@@ -87,7 +87,6 @@ export default function Satellite() {
 function calculateClipPath(percentage: number) {
   if (percentage >= 60) {
     const innerPercentage = (40 * (percentage - 60)) / 100
-    console.log(innerPercentage)
     return `circle(50% at 50% ${innerPercentage}%)`
   } else {
     return `circle(50% at 50% 50%)`

@@ -14,15 +14,10 @@ export default function BottomCard({
     // Get if is near the top or bottom
     const isNearTop = info.point.y < 475 ? true : false
 
-    console.log({ isNearTop, position: info.point.y })
-
-    // if near top set position to 0, else position to 325
     if (isNearTop) {
       setPosition(0)
-      console.log('near top, set position to', position)
     } else {
       setPosition(325)
-      console.log('not near top, set position to', position)
     }
   }
 
