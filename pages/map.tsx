@@ -117,6 +117,7 @@ export default function Map({ coord }: { coord: Coordinates }) {
           </div>
           <button
             className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-gray-600 bg-primary py-2 px-4 font-bold text-white hover:border-white"
+            data-testid="save-button"
             onClick={() => {
               handleSubmit()
             }}
@@ -131,7 +132,7 @@ export default function Map({ coord }: { coord: Coordinates }) {
           </button>
         </div>
       </div>
-      <div className="z-[10] h-full w-full" id="map"></div>
+      <div className="z-[10] h-full w-full" id="map" data-testid="map"></div>
     </>
   )
 }

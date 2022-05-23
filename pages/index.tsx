@@ -57,6 +57,7 @@ export default function HomePage({ city, region, country }: Geo) {
       <InstallPrompt />
       <span className="absolute top-0 left-0 z-50 inline-flex w-full items-center justify-center pt-2 text-lg text-white">
         <button
+          data-testid="select-location-button"
           className={
             !isDark()
               ? 'inline-flex h-full w-fit items-center justify-center font-bold text-secondary'

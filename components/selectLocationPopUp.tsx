@@ -83,8 +83,16 @@ export default function SelectLocationPopUp() {
         onClick={() => setConfig({ isOpen: false })}
       />
       <div className="absolute inset-0 z-[99] mx-auto my-auto h-3/4 w-5/6">
-        <div className="absolute flex h-full w-full flex-col items-center justify-start gap-2 rounded-xl bg-primary py-2 opacity-100">
-          <h1 className="text-xl font-bold">Selecciona una ciudad</h1>
+        <div
+          className="absolute flex h-full w-full flex-col items-center justify-start gap-2 rounded-xl bg-primary py-2 opacity-100"
+          data-testid="select-location-popup"
+        >
+          <h1
+            className="text-xl font-bold"
+            data-testid="select-location-popup-title"
+          >
+            Selecciona una ciudad
+          </h1>
           <div className="flex w-full flex-row items-center justify-center gap-2 px-2">
             <input
               className="w-3/4 rounded-lg border border-gray-500 bg-secondary p-2"
