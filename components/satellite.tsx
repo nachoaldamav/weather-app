@@ -10,7 +10,7 @@ const transition = { duration: 5, ease: 'easeInOut' }
 export default function Satellite() {
   const { settings } = useSettings()
   const [percentage, setPercentage] = useState(0)
-  const [clipPath, setClipPath] = useState(`circle(50% at 50% 50%)`)
+  const clipPath = `circle(50% at 50% 50%)`
   const [moonPhase, setMoonPhase] = useState<MoonPhase | MoonPhase>(0)
   const currentHour = getHours(settings.timezone)
 
@@ -71,7 +71,7 @@ export default function Satellite() {
                 background:
                   currentHour >= 18 || currentHour <= 10
                     ? 'radial-gradient(circle at bottom, #ffd700, #ffd700)'
-                    : 'radial-gradient(circle at bottom, #f4f5f5, #f4f5f5)',
+                    : 'radial-gradient(circle at center, yellow, #f4f5f5)',
                 boxShadow:
                   currentHour >= 18
                     ? '0px 0px 0px 0px #ffd700'
@@ -93,15 +93,6 @@ export default function Satellite() {
       ></motion.div>
     </div>
   )
-}
-
-function calculateClipPath(percentage: number) {
-  if (percentage >= 60) {
-    const innerPercentage = (40 * (percentage - 60)) / 100
-    return `circle(50% at 50% ${innerPercentage}%)`
-  } else {
-    return `circle(50% at 50% 50%)`
-  }
 }
 
 function calculateOpacity(percentage: number) {

@@ -30,10 +30,10 @@ export default function Map({ coord }: { coord: Coordinates }) {
       'pk.eyJ1IjoibmFjaG9hbGRhbWEiLCJhIjoiY2wzaGMwNXFhMHQ0NDNjbjAydjVzd2RrNCJ9.YdYC2ywI7RCHzkmrnppE7w'
 
     const map = new mapboxgl.Map({
-      container: 'map', // container ID
-      style: 'mapbox://styles/nachoaldama/cksz2ysd819qw17sd7yva4j07', // style URL
-      center: [coord.lng, coord.lat], // starting position [lng, lat]
-      zoom: 9, // starting zoom
+      container: 'map',
+      style: 'mapbox://styles/nachoaldama/cksz2ysd819qw17sd7yva4j07',
+      center: [coord.lng, coord.lat],
+      zoom: 9,
     })
 
     map.on('click', function (e) {
@@ -45,10 +45,10 @@ export default function Map({ coord }: { coord: Coordinates }) {
       if (marker) {
         marker.remove()
       }
-
-      // Place marker
       marker = new mapboxgl.Marker().setLngLat(e.lngLat).addTo(map)
     })
+
+    map.touchZoomRotate.disableRotation()
 
     const geoCoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
@@ -96,13 +96,14 @@ export default function Map({ coord }: { coord: Coordinates }) {
     <>
       <div className="absolute bottom-0 z-[99] h-fit w-full max-w-sm px-4 py-10">
         <div className="h-full w-full items-center justify-center rounded-lg bg-primary px-4 py-2 text-center">
-          <h1 className="text-left font-semibold">Selecciona un lugar</h1>
+          <h1 className="text-left font-semibold">Selecciona un lugar </h1>
+
           <div
-            className="my-4 flex w-full max-w-full cursor-pointer flex-row items-center justify-center gap-2 blur"
+            className="my-4 flex w-full max-w-full cursor-pointer flex-row items-center justify-center gap-2 blur-sm"
             id="coordinates"
             onClick={() => {
               const e = document.getElementById('coordinates')
-              e?.classList.toggle('blur')
+              e?.classList.toggle('blur-sm')
             }}
           >
             <h2 className="text-sm font-bold">
