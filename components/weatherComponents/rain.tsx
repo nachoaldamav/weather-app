@@ -138,6 +138,7 @@ export function RainParticles() {
               bounce: false,
             },
           },
+          fpsLimit: 30,
           retina_detect: true,
         }}
       />

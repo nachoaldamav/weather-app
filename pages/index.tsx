@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import GenerateGradient from '../components/backgroundGradient'
 import getCurrentPeriod from '../utils/getCurrentPeriod'
 import BottomCard from '../components/bottomCard'
-import LocationIcon from '../components/icons/location'
 import { useSelectLocation } from '../hooks/useSelectLocation'
 import SelectLocationPopUp from '../components/selectLocationPopUp'
 import Weather from '../components/weather'
@@ -16,7 +15,6 @@ export default function HomePage({ city, region, country }: Geo) {
   const { settings, setSettings } = useSettings()
   const currentPeriod = getCurrentPeriod(settings.timezone || null)
   const [weatherData, setWeatherData] = useState<weatherData>()
-  /* const currentPeriod = getCurrentPeriod(currentHour) */
 
   useEffect(() => {
     if (settings.city === '') {
@@ -34,7 +32,9 @@ export default function HomePage({ city, region, country }: Geo) {
       const data = await response.json()
       setWeatherData(data)
     }
-    fetchData()
+    if (settings.city !== '') {
+      fetchData()
+    }
   }, [settings])
 
   const isDark = () => {

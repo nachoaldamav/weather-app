@@ -113,11 +113,19 @@ export default function GenerateGradient({ type }: { type: string }) {
 
 function Stars() {
   const particlesInit = async (main: any) => {
-    // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
-    await loadFull(tsParticles)
+    await loadFull(main)
   }
+
+  useEffect(() => {
+    // Destroy particles on unmount
+    return () => {
+      const main = document.getElementById('tsparticles')
+      if (main) {
+        main.remove()
+      }
+    }
+  }, [])
+
   return (
     <motion.span
       className="absolute top-0 left-0 h-full w-full"
@@ -144,7 +152,7 @@ function Stars() {
             color: '#020024',
             opacity: 0.5,
           },
-          detectRetina: false,
+          detectRetina: true,
           fpsLimit: 30,
           interactivity: {
             detectsOn: 'canvas',
@@ -158,11 +166,11 @@ function Stars() {
             },
             number: {
               density: {
-                enable: true,
-                area: 1080,
+                enable: false,
+                area: 500,
               },
               limit: 0,
-              value: 400,
+              value: 100,
             },
             opacity: {
               animation: {
