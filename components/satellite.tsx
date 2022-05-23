@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useSettings } from '../hooks/useSettings'
 import getHours from '../utils/getHours'
+import getMoonPhase, { MoonPhase } from '../utils/getMoonPhase'
 import { getTimePer } from '../utils/getTimePer'
 
 const transition = { duration: 5, ease: 'easeInOut' }
@@ -10,11 +11,21 @@ export default function Satellite() {
   const { settings } = useSettings()
   const [percentage, setPercentage] = useState(0)
   const [clipPath, setClipPath] = useState(`circle(50% at 50% 50%)`)
+  const [moonPhase, setMoonPhase] = useState<MoonPhase | MoonPhase>(0)
   const currentHour = getHours(settings.timezone)
 
   useEffect(() => {
     setPercentage(getTimePer(currentHour))
   }, [currentHour])
+
+  useEffect(() => {
+    const today = new Date()
+    const year = today.getFullYear()
+    const month = today.getMonth()
+    const day = today.getDate()
+    const moon: MoonPhase = getMoonPhase(year, month, day)
+    setMoonPhase(moon)
+  }, [])
 
   const isNight = currentHour >= 0 && currentHour <= 6
 
@@ -50,8 +61,8 @@ export default function Satellite() {
           isNight
             ? {
                 opacity: calculateOpacity(percentage),
-                maskImage: `url(/images/moon/1.svg)`,
-                WebkitMaskImage: `url(/images/moon/1.svg)`,
+                maskImage: `url(/images/moon/${moonPhase}.svg)`,
+                WebkitMaskImage: `url(/images/moon/${moonPhase}.svg)`,
                 maskSize: '80%',
                 maskPosition: 'center',
                 WebkitMaskPosition: 'center',

@@ -1,5 +1,4 @@
 export default function getMoonPhase(year: number, month: number, day: number) {
-  /* var c = e = jd = b = 0; */
   let c = 0
   let e = 0
   let jd: any = 0
@@ -30,19 +29,10 @@ export default function getMoonPhase(year: number, month: number, day: number) {
     b = 0 //0 and 8 are the same so turn 8 into 0
   }
 
-  // 0 => New Moon
-  // 1 => Waxing Crescent Moon
-  // 2 => Quarter Moon
-  // 3 => Waxing Gibbous Moon
-  // 4 => Full Moon
-  // 5 => Waning Gibbous Moon
-  // 6 => Last Quarter Moon
-  // 7 => Waning Crescent Moon
-
   return b
 }
 
-enum MoonPhase {
+export enum MoonPhase {
   NewMoon = 0,
   WaxingCrescentMoon = 1,
   QuarterMoon = 2,
