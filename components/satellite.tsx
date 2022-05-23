@@ -60,7 +60,7 @@ export default function Satellite() {
                 opacity: calculateOpacity(percentage),
                 clipPath: clipPath,
                 background:
-                  currentHour >= 18
+                  currentHour >= 18 || currentHour <= 10
                     ? 'radial-gradient(circle at bottom, #ffd700, #ffd700)'
                     : 'radial-gradient(circle at bottom, #f4f5f5, #f4f5f5)',
                 boxShadow:

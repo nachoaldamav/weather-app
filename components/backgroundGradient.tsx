@@ -17,6 +17,7 @@ const gradients = [
     id: 'sunset',
     colors: ['#f9ec97', '#cf7c49', '#461819'],
     opacity: 0.75,
+    props_opacity: [1, 1, 0.9],
   },
   {
     id: 'night',
@@ -71,12 +72,12 @@ export default function GenerateGradient({ type }: { type: string }) {
       </AnimatePresence>
       <AnimatePresence>
         <motion.span
-          className="absolute top-0 left-0 z-[8] h-full w-full md:rounded-lg"
+          className="absolute top-0 left-0 z-[5] h-full w-full md:rounded-lg"
           animate={{
             background: `radial-gradient(circle at center, ${gradient?.colors.join(
               ', '
             )})`,
-            opacity: gradient?.n_opacity || 0.01,
+            opacity: gradient?.n_opacity || 0.3,
           }}
           transition={{
             ease: 'easeInOut',
@@ -99,19 +100,18 @@ export default function GenerateGradient({ type }: { type: string }) {
       />
       <img
         src="/images/fondo_2.png"
-        className="absolute bottom-3 left-0 z-[5] h-96 w-full"
+        className="absolute bottom-3 left-0 z-[6] h-96 w-full"
         style={{
           opacity:
-            (gradient?.props_opacity && gradient?.props_opacity[1]) || 0.75,
+            (gradient?.props_opacity && gradient?.props_opacity[1]) || 0.95,
         }}
         alt="fondo_2"
       />
       <img
         src="/images/fondo_3.png"
-        className="absolute bottom-0 left-0 z-[5] h-96 w-full"
+        className="absolute bottom-0 left-0 z-[4] h-96 w-full"
         style={{
-          opacity:
-            (gradient?.props_opacity && gradient?.props_opacity[2]) || 0.4,
+          opacity: (gradient?.props_opacity && gradient?.props_opacity[2]) || 1,
         }}
         alt="fondo_3"
       />
