@@ -60,7 +60,6 @@ export default function Satellite() {
         style={
           isNight
             ? {
-                opacity: calculateOpacity(percentage),
                 maskImage: `url(/images/moon/${moonPhase}.svg)`,
                 WebkitMaskImage: `url(/images/moon/${moonPhase}.svg)`,
                 maskSize: '80%',
@@ -68,7 +67,6 @@ export default function Satellite() {
                 WebkitMaskPosition: 'center',
               }
             : {
-                opacity: calculateOpacity(percentage),
                 clipPath: clipPath,
                 background:
                   currentHour >= 18 || currentHour <= 10
@@ -84,10 +82,12 @@ export default function Satellite() {
           offsetDistance: '0%',
           scale: isNight ? 3 : 2,
           clipPath: `circle(50% at 50% 50%)`,
+          opacity: 0,
         }}
         animate={{
           offsetDistance: `${percentage}%`,
           scale: isNight ? 3 : 2,
+          opacity: calculateOpacity(percentage),
         }}
         transition={transition}
       ></motion.div>
