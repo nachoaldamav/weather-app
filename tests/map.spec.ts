@@ -2,10 +2,11 @@ import { test, expect, Page } from '@playwright/test'
 import { delay } from './initial.spec'
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:3000/map')
+  await page.goto('http://localhost:3000/')
 })
 
 test('Map load', async ({ page }) => {
+  await page.goto('http://localhost:3000/map')
   const map = await page.waitForSelector('[data-testid="map"]')
   await delay(1000)
   const mapElements = await map.$$('div')
@@ -13,6 +14,7 @@ test('Map load', async ({ page }) => {
 })
 
 test('Select location from controller', async ({ page }) => {
+  await page.goto('http://localhost:3000/map')
   const searchInput = await page.waitForSelector('[aria-label="Search"]')
   await searchInput.type('Valladolid')
   await delay(500)
