@@ -4,6 +4,12 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
+env:
+  ## Sets environment variable
+  GOOGLE_MAPS_KEY: ${{ secrets.GOOGLE_MAPS_KEY }}
+  RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
+
 jobs:
 
   avoid_reduncy:

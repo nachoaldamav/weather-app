@@ -24,4 +24,11 @@ test('Select location from controller', async ({ page }) => {
   await delay(500)
   const saveButton = await page.waitForSelector('[data-testid="save-button"]')
   await saveButton.click()
+  
+  // Wait for the page to reload
+  await page.waitForNavigation({ waitUntil: 'networkidle' })
+  const title = await page.waitForSelector(
+    '[data-testid="select-location-button"]'
+  )
+  expect(await title.evaluate((e) => e.textContent)).toContain('Valladolid')
 })
