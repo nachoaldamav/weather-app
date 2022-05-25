@@ -96,7 +96,7 @@ export default function Satellite() {
 }
 
 function calculateOpacity(percentage: number) {
-  if (percentage >= 82) {
+  if (percentage >= 90) {
     return 0
   }
 
