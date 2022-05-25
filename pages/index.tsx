@@ -88,9 +88,9 @@ export default function HomePage({ city, region, country }: Geo) {
       <BottomCard>
         <div className="mx-auto flex h-screen w-96 max-w-xs flex-col items-center rounded-t-lg bg-primary md:max-w-sm">
           <div className="flex w-full cursor-pointer flex-row items-center justify-between rounded-lg p-4">
-            <h2 className="w-1/3 text-lg font-bold">Histórico</h2>
+            <h2 className="w-1/3 text-lg font-bold">Pronóstico</h2>
             <span className="h-2 w-1/4 rounded-xl bg-white" />
-            <h3 className="w-1/3 text-right text-lg font-medium">15 días</h3>
+            <div className="w-1/3 "></div>
           </div>
           <hr className="my-10 w-full" />
         </div>
