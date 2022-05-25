@@ -20,8 +20,17 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
+  delete-artifacts:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: kolpav/purge-artifacts-action@v1
+        with:
+          token: ${{ github.token }}
+          expire-in: 0 # Set this to 0 to delete all artifacts
+
   build:
     runs-on: ubuntu-18.04
+    needs: [delete-artifacts]
     steps:
       - uses: actions/checkout@v2
         with:
