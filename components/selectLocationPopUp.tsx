@@ -9,7 +9,7 @@ import LocationIcon from './icons/location'
 import MapIcon from './icons/map'
 
 let timer: any
-const waitTime = 500
+const waitTime = 200
 
 export default function SelectLocationPopUp() {
   const { config, setConfig } = useSelectLocation()
@@ -22,26 +22,35 @@ export default function SelectLocationPopUp() {
     setQ(e.target.value)
   }
 
+  const handleType = (e: any) => {
+    clearTimeout(timer)
+
+    timer = setTimeout(() => {
+      fetch('/api/get-cities?q=' + q)
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setResults(result)
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
+    }, waitTime)
+  }
+
   useEffect(() => {
     if (q.length > 2) {
       const input = document.getElementById('q')
-      input?.addEventListener('keyup', function (event) {
-        clearTimeout(timer)
-
-        timer = setTimeout(() => {
-          fetch('/api/get-cities?q=' + q)
-          .then((res) => res.json())
-          .then(
-            (result) => {
-              setResults(result)
-            },
-            (error) => {
-              console.log(error)
-            }
-          )
-        }, waitTime)
-      })
+      input?.addEventListener('keyup', handleType)
     }
+
+    return () => {
+      clearTimeout(timer)
+      const input = document.getElementById('q')
+      input?.removeEventListener('keyup', handleType)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q])
 
   async function handleSelection(data: CityData) {
