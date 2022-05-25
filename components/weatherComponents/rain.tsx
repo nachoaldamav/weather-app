@@ -5,35 +5,12 @@ import { loadFull } from 'tsparticles'
 import { tsParticles } from 'tsparticles-engine'
 import Head from 'next/head'
 import Image from 'next/image'
+import HeaderIcons from '../headerIcons'
 
 export default function Rain() {
   return (
     <WeatherLayout>
-      <Head>
-        <link
-          rel="apple-touch-icon"
-          sizes="76x76"
-          href="/icons/rainy/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/icons/rainy/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/icons/rainy/favicon-16x16.png"
-        />
-        <link
-          rel="mask-icon"
-          href="/icons/rainy/safari-pinned-tab.svg"
-          color="#5bbad5"
-        />
-        <link rel="shortcut icon" href="/icons/rainy/favicon.ico" />
-      </Head>
+      <HeaderIcons name={'rain'} />
       <div className="relative h-full w-full">
         <span className="absolute inset-0 h-full w-full bg-black bg-opacity-40" />
         <div className="absolute top-0 left-0 h-full w-full">
@@ -101,7 +78,7 @@ export function RainParticles() {
         init={particlesInit}
         options={{
           particles: {
-            number: { value: 120, density: { enable: false, value_area: 10 } },
+            number: { value: 20, density: { enable: false, value_area: 10 } },
             color: { value: '#fff' },
             shape: {
               type: 'image',
@@ -138,7 +115,7 @@ export function RainParticles() {
               bounce: false,
             },
           },
-          fpsLimit: 30,
+          fpsLimit: 60,
           retina_detect: true,
         }}
       />
