@@ -77,6 +77,21 @@ export default function GenerateGradient({ type }: { type: string }) {
           }}
         ></motion.span>
       </AnimatePresence>
+      <AnimatePresence>
+        <motion.span
+          className="absolute top-0 left-0 z-[8] h-full w-full blur-lg md:rounded-lg"
+          animate={{
+            background: `radial-gradient(circle at center, ${gradient?.colors.join(
+              ', '
+            )})`,
+            opacity: gradient?.n_opacity || 0.2,
+          }}
+          transition={{
+            ease: 'easeInOut',
+            duration: 1,
+          }}
+        ></motion.span>
+      </AnimatePresence>
       <span className="absolute top-0 left-0 h-full w-full">
         <AnimatePresence key={'decoration'}>
           {gradient?.decoration}
