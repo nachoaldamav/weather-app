@@ -29,7 +29,7 @@ const gradients = [
   },
   {
     id: 'day',
-    colors: ['#b7eaff', '#94dfff'],
+    colors: ['#90dffe', '#38a3d1'],
     opacity: 1,
   },
   {
@@ -127,14 +127,13 @@ export default function GenerateGradient({ type }: { type: string }) {
 }
 
 function Stars() {
-  const particlesInit = async (main: any) => {
-    await loadFull(main)
+  const particlesInit = async () => {
+    await loadFull(tsParticles)
   }
 
   useEffect(() => {
-    // Destroy particles on unmount
     return () => {
-      const main = document.getElementById('tsparticles')
+      const main = document.getElementById('stars-particles')
       if (main) {
         main.remove()
       }
@@ -159,10 +158,11 @@ function Stars() {
       }}
     >
       <Particles
-        id="tsparticles"
-        className="absolute top-0 left-0 h-full w-full"
+        id="stars-particles"
+        className="absolute top-0 left-0 z-[3] h-full w-full"
         init={particlesInit}
         options={{
+          fullScreen: false,
           background: {
             color: '#020024',
             opacity: 0.5,

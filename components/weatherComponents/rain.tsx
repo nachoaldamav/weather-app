@@ -6,6 +6,7 @@ import { tsParticles } from 'tsparticles-engine'
 import Head from 'next/head'
 import Image from 'next/image'
 import HeaderIcons from '../headerIcons'
+import { useEffect } from 'react'
 
 export default function Rain() {
   return (
@@ -55,6 +56,16 @@ export function RainParticles() {
   const particlesInit = async () => {
     await loadFull(tsParticles)
   }
+
+  useEffect(() => {
+    return () => {
+      const main = document.getElementById('rain-particles')
+      if (main) {
+        main.remove()
+      }
+    }
+  }, [])
+
   return (
     <motion.span
       className="absolute top-0 left-0 h-full w-full"
@@ -73,12 +84,13 @@ export function RainParticles() {
       }}
     >
       <Particles
-        id="tsparticles"
-        className="absolute top-0 left-0 h-full w-full"
+        id="rain-particles"
+        className="absolute top-0 left-0 z-[3] h-full w-full"
         init={particlesInit}
         options={{
+          fullScreen: false,
           particles: {
-            number: { value: 20, density: { enable: false, value_area: 10 } },
+            number: { value: 50, density: { enable: false, value_area: 10 } },
             color: { value: '#fff' },
             shape: {
               type: 'image',
@@ -86,8 +98,8 @@ export function RainParticles() {
               polygon: { nb_sides: 3 },
               image: {
                 src: 'https://i.imgur.com/GoIdncZ.png',
-                width: 200,
-                height: 200,
+                width: 400,
+                height: 400,
               },
             },
             opacity: {
