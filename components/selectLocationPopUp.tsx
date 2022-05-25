@@ -8,6 +8,9 @@ import LoadingIcon from './icons/loading'
 import LocationIcon from './icons/location'
 import MapIcon from './icons/map'
 
+let timer: any
+const waitTime = 500
+
 export default function SelectLocationPopUp() {
   const { config, setConfig } = useSelectLocation()
   const [loadingLocation, setLoadingLocation] = useState(false)
@@ -21,16 +24,23 @@ export default function SelectLocationPopUp() {
 
   useEffect(() => {
     if (q.length > 2) {
-      fetch('/api/get-cities?q=' + q)
-        .then((res) => res.json())
-        .then(
-          (result) => {
-            setResults(result)
-          },
-          (error) => {
-            console.log(error)
-          }
-        )
+      const input = document.getElementById('q')
+      input?.addEventListener('keyup', function (event) {
+        clearTimeout(timer)
+
+        timer = setTimeout(() => {
+          fetch('/api/get-cities?q=' + q)
+          .then((res) => res.json())
+          .then(
+            (result) => {
+              setResults(result)
+            },
+            (error) => {
+              console.log(error)
+            }
+          )
+        }, waitTime)
+      })
     }
   }, [q])
 
@@ -99,6 +109,7 @@ export default function SelectLocationPopUp() {
               type="text"
               placeholder="Busca una ciudad"
               value={q}
+              id="q"
               onChange={handleChange}
             />
             <button
