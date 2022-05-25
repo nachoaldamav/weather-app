@@ -9,12 +9,16 @@ import { useSettings } from '../hooks/useSettings'
 import Satellite from '../components/satellite'
 import Chevron from '../components/icons/chevron'
 import InstallPrompt from '../components/installPrompt'
+import getWeather from '../utils/getWeather'
+import getForecast, { Forecast } from '../utils/getForecast'
+import ForecastComponent from '../components/forecastComponent'
 
 export default function HomePage({ city, region, country }: Geo) {
   const { config, setConfig } = useSelectLocation()
   const { settings, setSettings } = useSettings()
   const currentPeriod = getCurrentPeriod(settings.timezone || null)
   const [weatherData, setWeatherData] = useState<weatherData>()
+  const [forecastData, setForecastData] = useState<Forecast>()
 
   useEffect(() => {
     if (settings.city === '') {
@@ -28,9 +32,10 @@ export default function HomePage({ city, region, country }: Geo) {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/get-weather?location=${settings.city}`)
-      const data = await response.json()
-      setWeatherData(data)
+      const weather = await getWeather(settings.city)
+      setWeatherData(weather)
+      const forecast = await getForecast(settings.city)
+      setForecastData(forecast)
     }
     if (settings.city !== '') {
       fetchData()
@@ -38,16 +43,10 @@ export default function HomePage({ city, region, country }: Geo) {
   }, [settings])
 
   const isDark = () => {
-    if (currentPeriod === 'night') {
-      return true
-    } else if (currentPeriod === 'sunset') {
-      return true
-    } else if (currentPeriod === 'dusk') {
-      return true
-    } else if (currentPeriod === 'sunrise') {
-      return true
-    } else {
+    if (currentPeriod === 'day') {
       return false
+    } else {
+      return true
     }
   }
 
@@ -86,14 +85,13 @@ export default function HomePage({ city, region, country }: Geo) {
         </h2>
       </div>
       <BottomCard>
-        <div className="mx-auto flex h-screen w-96 max-w-xs flex-col items-center rounded-t-lg bg-primary md:max-w-sm">
-          <div className="flex w-full cursor-pointer flex-row items-center justify-between rounded-lg p-4">
-            <h2 className="w-1/3 text-lg font-bold">Pronóstico</h2>
-            <span className="h-2 w-1/4 rounded-xl bg-white" />
-            <div className="w-1/3 "></div>
-          </div>
-          <hr className="my-10 w-full" />
+        <div className="flex w-full cursor-pointer flex-row items-center justify-between rounded-lg p-4">
+          <h2 className="w-1/3 text-lg font-bold">Pronóstico</h2>
+          <span className="h-2 w-1/4 rounded-xl bg-white" />
+          <div className="w-1/3 "></div>
         </div>
+        <hr className="my-5 w-full" />
+        <ForecastComponent data={forecastData} />
       </BottomCard>
     </div>
   )

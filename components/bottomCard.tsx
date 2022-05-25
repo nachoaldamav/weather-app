@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useTransform } from 'framer-motion'
 import { useRef } from 'react'
+
+const INITIAL_VALUE = 450
 
 export default function BottomCard({
   children,
@@ -8,7 +10,9 @@ export default function BottomCard({
   children: React.ReactNode
 }) {
   const constraintsRef = useRef(null)
-  const [position, setPosition] = useState(325)
+  const y = useMotionValue(625)
+  const width = useTransform(y, [INITIAL_VALUE, 0], ['85%', '95%'])
+  const [position, setPosition] = useState(INITIAL_VALUE)
 
   const handleDragEnd = (event: any, info: any) => {
     // Get if is near the top or bottom
@@ -17,32 +21,39 @@ export default function BottomCard({
     if (isNearTop) {
       setPosition(0)
     } else {
-      setPosition(325)
+      setPosition(INITIAL_VALUE)
     }
   }
 
   return (
-    <div className="absolute bottom-0 left-0 h-full max-h-96 w-full">
+    <div className="absolute bottom-0 left-0 h-3/4 w-full">
       <motion.div ref={constraintsRef} className="absolute h-full w-full" />
       <motion.div
         drag="y"
-        dragElastic={0.5}
+        dragElastic={0}
         dragConstraints={{
-          bottom: 325,
+          bottom: INITIAL_VALUE,
           top: 0,
         }}
         onDragEnd={handleDragEnd}
         className="absolute bottom-0 left-0 z-20 h-full w-full"
-        initial={{ y: 325 }}
-        animate={{
-          y: position,
+        initial={{ y: INITIAL_VALUE }}
+        style={{
+          y,
         }}
         transition={{
           ease: 'easeInOut',
           duration: 0.5,
         }}
       >
-        {children}
+        <motion.div
+          className="mx-auto flex h-screen max-w-full flex-col items-center rounded-t-lg bg-primary"
+          style={{
+            width: width,
+          }}
+        >
+          {children}
+        </motion.div>
       </motion.div>
     </div>
   )
