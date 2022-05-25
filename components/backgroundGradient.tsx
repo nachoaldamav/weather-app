@@ -66,7 +66,7 @@ export default function GenerateGradient({ type }: { type: string }) {
         <motion.span
           className="absolute top-0 left-0 z-[5] h-full w-full md:rounded-lg"
           animate={{
-            background: `radial-gradient(circle at center, ${gradient?.colors.join(
+            background: `radial-gradient(circle at bottom, ${gradient?.colors.join(
               ', '
             )})`,
             opacity: gradient?.n_opacity || 0.3,

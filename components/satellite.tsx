@@ -9,10 +9,11 @@ const transition = { duration: 5, ease: 'easeInOut' }
 
 export default function Satellite() {
   const { settings } = useSettings()
-  const [percentage, setPercentage] = useState(0)
-  const clipPath = `circle(50% at 50% 50%)`
-  const [moonPhase, setMoonPhase] = useState<MoonPhase | MoonPhase>(0)
   const currentHour = getHours(settings.timezone)
+  const [percentage, setPercentage] = useState(0)
+  const [moonPhase, setMoonPhase] = useState<MoonPhase | MoonPhase>(0)
+  const [isServer, setIsServer] = useState(true)
+  const clipPath = `circle(50% at 50% 50%)`
 
   useEffect(() => {
     setPercentage(getTimePer(currentHour))
@@ -25,11 +26,12 @@ export default function Satellite() {
     const day = today.getDate()
     const moon: MoonPhase = getMoonPhase(year, month, day)
     setMoonPhase(moon)
+    setIsServer(false)
   }, [])
 
   const isNight = currentHour >= 0 && currentHour <= 6
 
-  return (
+  return !isServer ? (
     <div
       className="container absolute inset-0 h-full w-full"
       style={{
@@ -92,7 +94,7 @@ export default function Satellite() {
         transition={transition}
       ></motion.div>
     </div>
-  )
+  ) : null
 }
 
 function calculateOpacity(percentage: number) {

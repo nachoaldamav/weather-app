@@ -14,7 +14,8 @@ const waitTime = 200
 export default function SelectLocationPopUp() {
   const { config, setConfig } = useSelectLocation()
   const [loadingLocation, setLoadingLocation] = useState(false)
-  const { settings, setSettings } = useSettings()
+  const [loadingResults, setLoadingResults] = useState(false)
+  const { setSettings } = useSettings()
   const [q, setQ] = useState('')
   const [results, setResults] = useState<any>()
 
@@ -24,6 +25,7 @@ export default function SelectLocationPopUp() {
 
   const handleType = (e: any) => {
     clearTimeout(timer)
+    setLoadingResults(true)
 
     timer = setTimeout(() => {
       fetch('/api/get-cities?q=' + q)
@@ -31,9 +33,11 @@ export default function SelectLocationPopUp() {
         .then(
           (result) => {
             setResults(result)
+            setLoadingResults(false)
           },
           (error) => {
             console.log(error)
+            setLoadingResults(false)
           }
         )
     }, waitTime)
@@ -133,6 +137,7 @@ export default function SelectLocationPopUp() {
               </a>
             </Link>
           </div>
+
           <div className="flex w-full flex-col items-start justify-start gap-2 overflow-y-auto px-4 pt-3 ">
             {results?.map((result: any, index: number) => (
               <button
@@ -147,6 +152,11 @@ export default function SelectLocationPopUp() {
               </button>
             ))}
           </div>
+          {q.length > 2 && loadingResults && (
+            <span className="inline-flex w-full items-center justify-center">
+              <LoadingIcon />
+            </span>
+          )}
         </div>
       </div>
     </div>
