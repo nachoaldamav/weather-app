@@ -6,6 +6,21 @@ html {
 body {
   overflow-x: hidden;
 }
+.react-modal-sheet-backdrop {
+  /* custom styles */
+}
+.react-modal-sheet-container {
+  @apply bottom-0 ml-0 w-full max-w-sm rounded-lg bg-primary md:left-[50%] md:right-[25%] md:-ml-[190px] !important;
+}
+.react-modal-sheet-header {
+  @apply rounded-lg;
+}
+.react-modal-sheet-drag-indicator {
+  /* custom styles */
+}
+.react-modal-sheet-content {
+  @apply flex flex-col px-4 text-white !important;
+}
 @tailwind components;
 
 @tailwind utilities;

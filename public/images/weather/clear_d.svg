@@ -1,0 +1,17 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" width="41" height="41">
+	<title>icons</title>
+	<defs>
+		<linearGradient id="g1" x1="0" y1="41" x2="41" y2="0" gradientUnits="userSpaceOnUse">
+			<stop offset="0" stop-color="#ffbc27"/>
+			<stop offset="1" stop-color="#fde252"/>
+		</linearGradient>
+	</defs>
+	<style>
+		.s0 { fill: url(#g1) } 
+	</style>
+	<g id="icons">
+		<g id="-e- clear_d">
+			<circle id="sun" class="s0" cx="20.5" cy="20.5" r="20.5"/>
+		</g>
+	</g>
+</svg>

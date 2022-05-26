@@ -12,6 +12,7 @@ import InstallPrompt from '../components/installPrompt'
 import getWeather from '../utils/getWeather'
 import getForecast, { Forecast } from '../utils/getForecast'
 import ForecastComponent from '../components/forecastComponent'
+import { conditions } from '../utils/getIcons'
 
 export default function HomePage({ city, region, country }: Geo) {
   const { config, setConfig } = useSelectLocation()
@@ -50,8 +51,12 @@ export default function HomePage({ city, region, country }: Geo) {
     }
   }
 
+  const weatherText = conditions.find((i) =>
+    i.ids.includes(weatherData?.current.condition.code || 1000)
+  )?.text
+
   return (
-    <div className="relative flex h-full w-full flex-col p-4">
+    <div className="relative flex h-full w-full flex-col p-4" id="main">
       <SelectLocationPopUp />
       <InstallPrompt />
       <span className="absolute top-0 left-0 z-50 inline-flex w-full items-center justify-center pt-2 text-lg text-white">
@@ -84,13 +89,10 @@ export default function HomePage({ city, region, country }: Geo) {
           <span className="text-2xl font-bold">°</span>
         </h2>
         <h4 className="text-md inline-flex w-full items-start justify-center text-center font-semibold opacity-75">
-          {weatherData?.current?.condition?.text || 'Loading...'}
+          {weatherText || 'Loading...'}
         </h4>
       </div>
       <BottomCard>
-        <div className="flex w-full cursor-pointer flex-row items-center justify-center rounded-lg p-4 mb-8">
-          <span className="h-2 w-1/4 rounded-xl bg-white" />
-        </div>
         <ForecastComponent data={forecastData} />
       </BottomCard>
     </div>
