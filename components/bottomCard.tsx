@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { motion, useMotionValue, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 
-const INITIAL_VALUE = 560
+const INITIAL_VALUE = 550
 
 export default function BottomCard({
   children,

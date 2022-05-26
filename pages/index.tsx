@@ -79,21 +79,18 @@ export default function HomePage({ city, region, country }: Geo) {
             : 'z-10 flex flex-col text-white'
         }
       >
-        <h2 className="mt-10 inline-flex w-full items-start justify-center text-center text-9xl font-bold">
-          {(weatherData && Math.round(weatherData.current?.temp_c)) || 0}{' '}
-          <span className="text-[20px]">°C</span>
+        <h2 className="relative mt-10 inline-flex w-full items-start justify-center text-center text-9xl font-bold">
+          {(weatherData && Math.round(weatherData.current?.temp_c)) || 0}
+          <span className="text-2xl font-bold">°</span>
         </h2>
-        <h4 className="inline-flex w-full items-start justify-center text-center text-md font-semibold opacity-75">
+        <h4 className="text-md inline-flex w-full items-start justify-center text-center font-semibold opacity-75">
           {weatherData?.current?.condition?.text || 'Loading...'}
         </h4>
       </div>
       <BottomCard>
-        <div className="flex w-full cursor-pointer flex-row items-center justify-between rounded-lg p-4">
-          <h2 className="w-1/3 text-lg font-bold">Pronóstico</h2>
+        <div className="flex w-full cursor-pointer flex-row items-center justify-center rounded-lg p-4 mb-8">
           <span className="h-2 w-1/4 rounded-xl bg-white" />
-          <div className="w-1/3 "></div>
         </div>
-        <hr className="my-5 w-full" />
         <ForecastComponent data={forecastData} />
       </BottomCard>
     </div>
