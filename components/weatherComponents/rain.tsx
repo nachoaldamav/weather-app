@@ -5,13 +5,11 @@ import { loadFull } from 'tsparticles'
 import { tsParticles } from 'tsparticles-engine'
 import Head from 'next/head'
 import Image from 'next/image'
-import HeaderIcons from '../headerIcons'
 import { useEffect } from 'react'
 
 export default function Rain() {
   return (
     <WeatherLayout>
-      <HeaderIcons name={'rain'} />
       <div className="relative h-full w-full">
         <span className="absolute inset-0 h-full w-full bg-black bg-opacity-40" />
         <div className="absolute top-0 left-0 h-full w-full">
