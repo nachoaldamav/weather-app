@@ -1,11 +1,7 @@
 import { useSettings } from '../hooks/useSettings'
 import { Forecast } from '../utils/getForecast'
 
-export default function ForecastComponent({
-  data,
-}: {
-  data: Forecast | undefined
-}) {
+export default function ForecastComponent({ data }: { data?: Forecast }) {
   const { settings } = useSettings()
 
   function parseDate(date: string) {
@@ -33,6 +29,10 @@ export default function ForecastComponent({
     <div
       className="flex h-[55%] w-full flex-col gap-2 overflow-y-auto"
       onDragStart={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+      }}
+      onDrag={(e) => {
         e.preventDefault()
         e.stopPropagation()
       }}

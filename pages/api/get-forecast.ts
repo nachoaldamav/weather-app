@@ -17,7 +17,6 @@ export default async function getWeather(
     params: {
       q: location,
       days: 3,
-      land: 'es-ES',
     },
   }
 

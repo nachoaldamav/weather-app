@@ -83,6 +83,9 @@ export default function HomePage({ city, region, country }: Geo) {
           {(weatherData && Math.round(weatherData.current?.temp_c)) || 0}{' '}
           <span className="text-[20px]">°C</span>
         </h2>
+        <h4 className="inline-flex w-full items-start justify-center text-center text-md font-semibold opacity-75">
+          {weatherData?.current?.condition?.text || 'Loading...'}
+        </h4>
       </div>
       <BottomCard>
         <div className="flex w-full cursor-pointer flex-row items-center justify-between rounded-lg p-4">
