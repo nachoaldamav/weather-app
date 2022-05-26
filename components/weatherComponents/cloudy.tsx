@@ -1,11 +1,9 @@
 import Image from 'next/image'
-import HeaderIcons from '../headerIcons'
 import WeatherLayout from './weatherLayout'
 
 export default function Cloudy() {
   return (
     <WeatherLayout>
-      <HeaderIcons name={'clouds'} />
       <div className="relative h-full w-full opacity-75">
         <div className="absolute top-0 left-0 h-full w-full">
           <Image
