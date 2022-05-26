@@ -20,7 +20,7 @@ const periods = [
   {
     type: 'dusk',
     start: 20,
-    end: 23,
+    end: 22,
   },
   {
     type: 'night',
@@ -42,7 +42,7 @@ export default function getCurrentPeriod(timezone?: string | null) {
       }
     })
 
-    return currentPeriod?.type || 'day'
+    return currentPeriod?.type || 'night'
   } else {
     const hours = getHours(timezone)
     const currentPeriod = periods.find((p) => {
@@ -53,6 +53,6 @@ export default function getCurrentPeriod(timezone?: string | null) {
       }
     })
 
-    return currentPeriod?.type || 'day'
+    return currentPeriod?.type || 'night'
   }
 }
