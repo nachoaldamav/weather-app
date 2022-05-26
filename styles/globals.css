@@ -5,6 +5,7 @@ html {
 }
 body {
   overflow-x: hidden;
+  overscroll-behavior-y: contain;
 }
 .react-modal-sheet-backdrop {
   /* custom styles */
