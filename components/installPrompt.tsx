@@ -53,7 +53,7 @@ export default function InstallPrompt() {
       {show && (
         <div className="absolute top-0 left-0 z-[90] h-full w-full bg-primary bg-opacity-40">
           <div className="absolute inset-0 z-[99] mx-auto my-auto h-full w-[95%]">
-            <div className="absolute bottom-0 mb-2 flex h-fit w-full flex-col items-center justify-center gap-2 rounded-xl bg-primary px-4 py-10 opacity-100">
+            <div className="absolute bottom-0 mb-6 flex h-fit w-full flex-col items-center justify-center gap-2 rounded-xl bg-primary px-4 py-10 opacity-100">
               <h1 className="text-md mb-4 text-center font-medium">
                 Consulta el tiempo donde quieras y cuando quieras
               </h1>

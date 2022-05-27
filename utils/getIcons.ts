@@ -17,7 +17,7 @@ export const conditions = [
   {
     name: 'fog',
     text: 'Niebla',
-    ids: [1135, 1147],
+    ids: [1030, 1135, 1147],
   },
   {
     name: 'heavy_rain',
@@ -27,7 +27,7 @@ export const conditions = [
   {
     name: 'moderate_rain',
     text: 'Lluvia moderada',
-    ids: [1186, 1189, 1201, 1207, 1240],
+    ids: [1186, 1189, 1201, 1207, 1240, 1243],
   },
   {
     name: 'mostly_cloudy',
