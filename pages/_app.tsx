@@ -23,6 +23,7 @@ async function registerPeriodicSync() {
           minInterval: 60 * 1000, // 5 minutes for testing purposes
         })
         console.log('Periodic background sync registered!')
+        askForNotificationPermission()
       } catch (e) {
         console.error(`Periodic background sync failed:\nx${e}`)
       }
@@ -33,6 +34,12 @@ async function registerPeriodicSync() {
   } else {
     console.log('Periodic background sync is not supported.')
   }
+}
+
+function askForNotificationPermission() {
+  Notification.requestPermission((status) => {
+    console.log(`Notification permission status: ${status}`)
+  })
 }
 
 function MyApp({ Component, pageProps }: AppProps) {

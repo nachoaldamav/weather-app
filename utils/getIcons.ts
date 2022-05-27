@@ -52,7 +52,7 @@ export const conditions = [
   {
     name: 'light_rain',
     text: 'Lluvia ligera',
-    ids: [1063, 1180, 1198],
+    ids: [1063, 1180, 1198, 1183],
   },
   {
     name: 'snow',
