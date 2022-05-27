@@ -7,8 +7,6 @@ export default function ForecastComponent({ data }: { data?: Forecast }) {
   const { settings } = useSettings()
   const hours = selectHours(data)
 
-  console.log(hours)
-
   function parseDate(date: string) {
     const d = new Date(date)
     return d.toLocaleDateString('es-ES', {

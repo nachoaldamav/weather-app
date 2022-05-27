@@ -39,7 +39,6 @@ export default async function getWeather(
     )
 
     if (!city && !locality) {
-      console.log(data.results[0].address_components)
       res.status(404).json({ error: 'City not found' })
       return
     } else {

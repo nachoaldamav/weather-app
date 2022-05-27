@@ -22,30 +22,54 @@ async function registerPeriodicSync() {
         await registration.periodicSync.register('get-forecast', {
           minInterval: 60 * 1000, // 5 minutes for testing purposes
         })
-        console.log('Periodic background sync registered!')
+        console.log('[Service Worker] Periodic background sync registered!')
         askForNotificationPermission()
       } catch (e) {
-        console.error(`Periodic background sync failed:\nx${e}`)
+        console.error(
+          `[Service Worker] Periodic background sync failed:\nx${e}`
+        )
       }
     } else {
-      console.info('Periodic background sync is not granted.')
+      console.info('[Service Worker] Periodic background sync is not granted.')
       console.error(status)
     }
   } else {
-    console.log('Periodic background sync is not supported.')
+    console.log('[Service Worker] Periodic background sync is not supported.')
   }
 }
 
 function askForNotificationPermission() {
   Notification.requestPermission((status) => {
-    console.log(`Notification permission status: ${status}`)
+    console.log(`[Service Worker] Notification permission status: ${status}`)
   })
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js')
+      navigator.serviceWorker.register('/sw.js').then((registration) => {
+        registration.update()
+        registration.onupdatefound = () => {
+          const installingWorker = registration.installing
+          if (installingWorker == null) {
+            return
+          }
+          installingWorker.onstatechange = () => {
+            if (installingWorker.state === 'installed') {
+              if (navigator.serviceWorker.controller) {
+                console.log(
+                  '[Service Worker] New or updated content is available.'
+                )
+              } else {
+                console.log(
+                  '[Service Worker] Content is now available offline!'
+                )
+              }
+            }
+          }
+        }
+        console.log('[Service Worker] Service worker registered!')
+      })
 
       // Register periodic sync
       registerPeriodicSync()
