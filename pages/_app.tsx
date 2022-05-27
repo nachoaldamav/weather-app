@@ -6,10 +6,42 @@ import { UserSettingsProvider } from '../context/userSettings'
 import { useEffect } from 'react'
 import Head from 'next/head'
 
+async function registerPeriodicSync() {
+  const registration = await navigator.serviceWorker.ready
+  // Check if periodicSync is supported
+  if ('periodicSync' in registration) {
+    // Request permission
+    const status = await navigator.permissions.query({
+      // @ts-ignore-next-line
+      name: 'periodic-background-sync',
+    })
+
+    if (status.state === 'granted') {
+      try {
+        // @ts-ignore-next-line
+        await registration.periodicSync.register('get-forecast', {
+          minInterval: 60 * 1000, // 5 minutes for testing purposes
+        })
+        console.log('Periodic background sync registered!')
+      } catch (e) {
+        console.error(`Periodic background sync failed:\nx${e}`)
+      }
+    } else {
+      console.info('Periodic background sync is not granted.')
+      console.error(status)
+    }
+  } else {
+    console.log('Periodic background sync is not supported.')
+  }
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js')
+
+      // Register periodic sync
+      registerPeriodicSync()
     }
   }, [])
 

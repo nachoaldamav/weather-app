@@ -46,7 +46,7 @@ function HourItem({
       hour: 'numeric',
       minute: 'numeric',
       hour12: false,
-      timeZone: timezone || '',
+      timeZone: timezone || 'Europe/Madrid',
     })
   }
 
@@ -58,7 +58,7 @@ function HourItem({
       epoch
         .toLocaleTimeString('es-ES', {
           hour12: false,
-          timeZone: timezone || '',
+          timeZone: timezone || 'Europe/Madrid',
         })
         .split(':')[0]
     )

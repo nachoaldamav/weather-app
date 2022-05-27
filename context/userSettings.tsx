@@ -1,3 +1,4 @@
+import localforage from 'localforage'
 import { createContext, useEffect, useState } from 'react'
 
 export const userSettingsContext = createContext({
@@ -39,6 +40,12 @@ export const UserSettingsProvider = ({
 
   useEffect(() => {
     localStorage.setItem('weather_settings', JSON.stringify(settings))
+
+    // Send data to background script
+    navigator.serviceWorker.controller?.postMessage({
+      type: 'SETTINGS_CHANGED',
+      settings,
+    })
   }, [settings])
 
   return (

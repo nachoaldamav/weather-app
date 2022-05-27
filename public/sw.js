@@ -1,3 +1,7 @@
+importScripts(
+  'https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js'
+)
+
 const CACHE_NAME = 'offline'
 const OFFLINE_URL = '/offline'
 
@@ -59,3 +63,36 @@ self.addEventListener('fetch', function (event) {
     )
   }
 })
+
+self.addEventListener('message', async function (event) {
+  // Get local storate data
+  console.log('[Service Worker] Message received from ' + event.source.id)
+  if (event.data.type === 'SETTINGS_CHANGED') {
+    await localforage.setItem('settings', event.data.settings)
+    const CURRENT_SETTINGS = await localforage.getItem('settings')
+    console.log('[Service Worker] Settings changed', CURRENT_SETTINGS)
+  }
+})
+
+// Listen the periodic background sync events to update the cached resources.
+self.addEventListener('periodicsync', async (event) => {
+  console.log('[Service Worker] Periodic sync triggered')
+  if (event.tag === 'get-forecast') {
+    console.log('[Service Worker] Fetching forecast')
+    event.waitUntil(getForecast())
+  }
+})
+
+async function getForecast() {
+  const CURRENT_SETTINGS = await localforage.getItem('settings')
+  const url = `/api/get-forecast?location=${CURRENT_SETTINGS.city}`
+  try {
+    const response = await fetch(url)
+    const data = await response.json()
+    console.log('[Service Worker] Forecast fetched', data)
+    return data
+  } catch (error) {
+    console.log('[Service Worker] Error fetching forecast', error)
+    throw error
+  }
+}

@@ -10,6 +10,7 @@
     "@mapbox/mapbox-gl-geocoder": "^5.0.1",
     "axios": "^0.27.2",
     "framer-motion": "^6.3.3",
+    "localforage": "^1.10.0",
     "mapbox-gl": "^2.8.2",
     "memory-cache": "^0.2.0",
     "next": "latest",
