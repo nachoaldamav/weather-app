@@ -83,6 +83,24 @@ self.addEventListener('periodicsync', async (event) => {
   }
 })
 
+self.addEventListener('notificationclick', function (event) {
+  let url = '/'
+  event.notification.close()
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then((windowClients) => {
+      for (var i = 0; i < windowClients.length; i++) {
+        var client = windowClients[i]
+        if (client.url === url && 'focus' in client) {
+          return client.focus()
+        }
+      }
+      if (clients.openWindow) {
+        return clients.openWindow(url)
+      }
+    })
+  )
+})
+
 async function getForecast() {
   const CURRENT_SETTINGS = await localforage.getItem('settings')
   const url = `/api/get-forecast?location=${CURRENT_SETTINGS.city}`
@@ -91,7 +109,9 @@ async function getForecast() {
     const data = await response.json()
     console.log('[Service Worker] Forecast fetched', data)
 
-    const currentHour = new Date().getHours()
+    const currentHour = parseInt(
+      data.location.localtime.split(' ')[1].split(':')[0]
+    )
 
     const isToday = currentHour < 12
 
@@ -104,23 +124,20 @@ async function getForecast() {
       i.ids.includes(selected.condition.code)
     )?.text
 
-    const iconUrl = `/images/weather/${icon}_d.svg`
+    const iconUrl = `./images/weather/${icon}_d.png`
     const title = `${selected.avgtemp_c.toFixed(0)}° en ${
       CURRENT_SETTINGS.city
-    } mañana`
+    } ${isToday ? 'hoy' : 'mañana'}`
     const body = `${text} · Abre la app para mas información`
 
     // Send notification to the client
-    const notification = await self.registration.showNotification(title, {
+    await self.registration.showNotification(title, {
       body: body,
       icon: iconUrl,
-      badge: '/images/notification_icon.png',
+      badge: './images/notification_icon.png',
       silent: true,
+      tag: 'forecast-notification',
     })
-
-    notification.onclick = () => {
-      clients.openWindow('/')
-    }
   } catch (error) {
     console.log('[Service Worker] Error fetching forecast', error)
     throw error

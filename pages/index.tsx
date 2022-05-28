@@ -68,7 +68,9 @@ export default function HomePage({ city, region, country }: Geo) {
     <div className="relative flex h-full w-full flex-col p-4" id="main">
       <Head>
         <title>
-          {'El tiempo en' + weatherData?.location.name || 'Weather App'}
+          {weatherData?.location.name
+            ? 'El tiempo en ' + weatherData?.location.name
+            : 'Weather App'}
         </title>
         <link
           rel="icon"

@@ -59,7 +59,7 @@ export default function SelectLocationPopUp() {
 
   async function handleSelection(data: CityData) {
     const response = await fetch(
-      `/api/get-region?lat=${data.lat}&lng=${data.lng}`
+      `/api/get-region?latlng=${data.lat},${data.lng}`
     )
     const region = await response.json()
     const timezone = await getTimezone(data.lat, data.lng)
