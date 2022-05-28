@@ -90,7 +90,12 @@ async function getForecast() {
     const response = await fetch(url)
     const data = await response.json()
     console.log('[Service Worker] Forecast fetched', data)
-    const selected = data.forecast.forecastday[1].day
+
+    const currentHour = new Date().getHours()
+
+    const isToday = currentHour < 12
+
+    const selected = data.forecast.forecastday[isToday ? 0 : 1].day
 
     const icon = conditions.find((i) =>
       i.ids.includes(selected.condition.code)
@@ -106,13 +111,16 @@ async function getForecast() {
     const body = `${text} · Abre la app para mas información`
 
     // Send notification to the client
-    await self.registration.showNotification(title, {
+    const notification = await self.registration.showNotification(title, {
       body: body,
       icon: iconUrl,
-      badge: iconUrl,
-      tag: 'Weather App',
+      badge: '/images/notification_icon.png',
       silent: true,
     })
+
+    notification.onclick = () => {
+      clients.openWindow('/')
+    }
   } catch (error) {
     console.log('[Service Worker] Error fetching forecast', error)
     throw error
@@ -138,7 +146,7 @@ const conditions = [
   {
     name: 'fog',
     text: 'Niebla',
-    ids: [1135, 1147],
+    ids: [1030, 1135, 1147],
   },
   {
     name: 'heavy_rain',
@@ -148,7 +156,7 @@ const conditions = [
   {
     name: 'moderate_rain',
     text: 'Lluvia moderada',
-    ids: [1186, 1189, 1201, 1207, 1240],
+    ids: [1186, 1189, 1201, 1207, 1240, 1243],
   },
   {
     name: 'mostly_cloudy',
@@ -173,7 +181,7 @@ const conditions = [
   {
     name: 'light_rain',
     text: 'Lluvia ligera',
-    ids: [1063, 1180, 1198],
+    ids: [1063, 1180, 1198, 1183],
   },
   {
     name: 'snow',
