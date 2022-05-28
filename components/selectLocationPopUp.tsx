@@ -45,13 +45,13 @@ export default function SelectLocationPopUp() {
 
   useEffect(() => {
     if (q.length > 2) {
-      const input = document.getElementById('q')
+      const input = document.getElementById('one-time-code')
       input?.addEventListener('keyup', handleType)
     }
 
     return () => {
       clearTimeout(timer)
-      const input = document.getElementById('q')
+      const input = document.getElementById('one-time-code')
       input?.removeEventListener('keyup', handleType)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,8 +122,10 @@ export default function SelectLocationPopUp() {
               type="text"
               placeholder="Busca una ciudad"
               value={q}
-              id="q"
+              id="one-time-code"
               onChange={handleChange}
+              autoComplete="one-time-code"
+              data-testid="select-location-popup-input"
             />
             <button
               className="w-fit rounded-lg border border-gray-500 bg-secondary p-2"
