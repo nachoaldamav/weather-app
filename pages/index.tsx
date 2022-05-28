@@ -52,6 +52,14 @@ export default function HomePage({ city, region, country }: Geo) {
     }
   }
 
+  const isNight = () => {
+    if (currentPeriod === 'night') {
+      return true
+    } else {
+      return false
+    }
+  }
+
   const weatherText = conditions.find((i) =>
     i.ids.includes(weatherData?.current.condition.code || 1000)
   )
@@ -59,13 +67,15 @@ export default function HomePage({ city, region, country }: Geo) {
   return (
     <div className="relative flex h-full w-full flex-col p-4" id="main">
       <Head>
-        <title>El tiempo en {weatherData?.location.name}</title>
+        <title>
+          {'El tiempo en' + weatherData?.location.name || 'Weather App'}
+        </title>
         <link
           rel="icon"
           type="image/png"
           sizes="72x72"
           href={`/images/weather/${weatherText?.name || 'clear'}_${
-            isDark() ? 'd' : 'n'
+            isNight() ? 'n' : 'd'
           }.svg`}
         />
       </Head>
