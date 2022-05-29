@@ -8,7 +8,7 @@
 
 # Weather App
 
-App creada para la Hackathon the Midudev https://twitch.tv/midudev
+App creada para la Hackathon de Midudev https://twitch.tv/midudev
 
 **Características**
 
