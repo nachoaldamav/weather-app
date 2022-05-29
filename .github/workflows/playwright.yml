@@ -55,7 +55,7 @@ jobs:
           cache: 'npm'
           node-version: '16'
       - name: Install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
       - name: Build
         run: yarn build
       - uses: actions/upload-artifact@v2
@@ -76,7 +76,7 @@ jobs:
           cache: 'npm'
           node-version: '16'
       - name: Install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
       - name: Install Playwright Browsers
         run: npx playwright install chromium --with-deps
         
