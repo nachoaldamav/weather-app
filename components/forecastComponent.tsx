@@ -2,31 +2,72 @@ import Image from 'next/image'
 import { useSettings } from '../hooks/useSettings'
 import { Forecast } from '../utils/getForecast'
 import { conditions } from '../utils/getIcons'
+import dynamic from 'next/dynamic'
+
+const DynamicChart = dynamic(() => import('../components/temperatureChart'), {
+  ssr: false,
+})
 
 export default function ForecastComponent({ data }: { data?: Forecast }) {
   const { settings } = useSettings()
   const hours = selectHours(data)
+  const day = data?.forecast.forecastday[0].hour
 
   function parseDate(date: string) {
     const d = new Date(date)
     return d.toLocaleDateString('es-ES', {
       weekday: 'long',
       year: 'numeric',
-      month: 'long',
+      month: 'numeric',
       day: 'numeric',
       timeZone: settings.timezone,
     })
   }
 
+  function getIcon(id: number) {
+    return conditions.find((c) => c.ids.includes(id))?.name
+  }
+
   return (
-    <div className="flex w-full flex-col gap-2 overflow-y-auto">
+    <div className="flex w-full flex-col gap-1 overflow-y-auto">
       <h3 className="text-lg font-medium">Hoy</h3>
-      <div className="flex w-full flex-row justify-between gap-2 overflow-y-auto">
+      <div className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full flex w-full flex-row justify-between gap-2 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800 md:scrollbar">
         {hours.map((hour, index) => (
           <HourItem key={index} data={hour} timezone={settings.timezone} />
         ))}
       </div>
-      <h3 className="text-lg font-medium">Pronóstico</h3>
+      <div className="flex w-full flex-col justify-between gap-0 overflow-hidden">
+        <h3 className="text-lg font-medium">Temperatura</h3>
+        <DynamicChart data={day} />
+      </div>
+      <div className="-mt-8 flex w-full flex-col justify-between gap-1 overflow-hidden">
+        <h3 className="text-lg font-medium">Pronóstico</h3>
+        {data?.forecast.forecastday.slice(1, 3).map((day, index) => (
+          <div
+            key={index}
+            className="flex h-fit w-full flex-row items-center justify-between rounded-lg bg-secondary px-4 py-3"
+          >
+            <h4 className="font-bold">{parseDate(day.date)}</h4>
+            <div className="flex flex-row gap-4">
+              <span className="inline-flex items-center gap-2 font-bold">
+                <span className="text-blue-400">
+                  {day.day.mintemp_c.toFixed(0)}º
+                </span>
+                <span>-</span>
+                <span className="text-red-400">
+                  {day.day.maxtemp_c.toFixed(0)}º
+                </span>
+              </span>
+              <Image
+                src={`/images/weather/${getIcon(day.day.condition.code)}_d.svg`}
+                width={24}
+                height={24}
+                alt={day.day.condition.text}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
