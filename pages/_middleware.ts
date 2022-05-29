@@ -4,7 +4,7 @@ export async function middleware(req: NextRequest) {
   const { nextUrl: url, geo } = req
   const country = geo?.country || 'ES'
   const city = geo?.city || 'Madrid'
-  const region = geo?.region || 'MAD'
+  const region = geo?.region || 'MD'
   const lat = geo?.latitude || 40.416775
   const lon = geo?.longitude || -3.70379
 

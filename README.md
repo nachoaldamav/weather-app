@@ -1,23 +1,38 @@
-# Next.js + Tailwind CSS Example
+<p align="center">
+  <img 
+    width="150"
+    height="150"
+    src="https://i.imgur.com/HJtNd0C.png"
+  >
+</p>
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+# Weather App
 
-## Deploy your own
+App creada para la Hackathon the Midudev https://twitch.tv/midudev
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+**Características**
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+ - Pre-selección de ubicación usando los middleware de Next.js
+ - Selección de localización mediante búsqueda, ubicación y mapa
+ - Fondo dinámico basado en la hora actual
+ - Condiciones atmosféricas dinámicas
+ - Recorrido del sol y la luna "en tiempo real"
+ - PWA instalable
+ - Notificaciones cada 12 horas para mostrar la temperatura del día actual o el siguiente
+ - Condiciones de cada hora hasta el final del día
+ - Gráfica de la temperatura a lo largo del día hasta el final
+ - Previsión de los siguientes 2 días (limitado por la API)
+ - Iconos dinámicos (diferencia entre día y noche)
 
-## How to use
+**Tecnologías**
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-# or
-pnpm create next-app -- --example with-tailwindcss with-tailwindcss-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+ - Next.js
+ - Rapid API (API del tiempo)
+ - Mapbox
+ - Google Maps (para buscar localizaciones y zonas horarias)
+ - Particle.js
+ - [React Modal Sheet](https://github.com/Temzasse/react-modal-sheet) 
+ - Framer motion
+ - Heroicons
+ - Apex charts
+ - PWA

@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import Particles from 'react-tsparticles'
 import { loadFull } from 'tsparticles'
 import { tsParticles } from 'tsparticles-engine'
-import getRelativeClientRect from '../utils/getRelativeClientRect'
 
 const gradients = [
   {
