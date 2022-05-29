@@ -67,7 +67,7 @@ jobs:
 
   build:
     runs-on: ubuntu-18.04
-    needs: [delete-artifacts, avoid_reduncy]
+    needs: [avoid_reduncy]
     steps:
       - uses: actions/checkout@v2
         with:
