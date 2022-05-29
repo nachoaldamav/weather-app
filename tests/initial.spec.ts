@@ -24,6 +24,32 @@ test('Basic test', async ({ page }) => {
   )
 })
 
+test('Select city from search', async ({ page }) => {
+  // Get select location button
+  const selectLocationButton = await page.waitForSelector(
+    '[data-testid="select-location-button"]'
+  )
+  await selectLocationButton.click()
+  await delay(200)
+  // Chech if popup is visible
+  const popup = await page.waitForSelector(
+    '[data-testid="select-location-popup"]'
+  )
+  const searchInput = await popup.waitForSelector(
+    '[data-testid="select-location-popup-input"]'
+  )
+  await searchInput.type('Barcelona')
+  await delay(200)
+  const searchResult = await popup.waitForSelector(
+    '[data-testid="select-location-popup-results"]'
+  )
+  await popup.waitForSelector('[data-testid="select-location-popup-result"]')
+  const results = await searchResult.$$('button')
+  await results[1].click()
+  await delay(500)
+  await checkLocationInLocalStorage(page, 'Barcelona')
+})
+
 test('Check middlewate location', async ({ page }) => {
   // Check local storage
   await delay(1000)

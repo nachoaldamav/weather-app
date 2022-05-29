@@ -140,10 +140,14 @@ export default function SelectLocationPopUp() {
             </Link>
           </div>
 
-          <div className="flex w-full flex-col items-start justify-start gap-2 overflow-y-auto px-4 pt-3 ">
+          <div
+            className="flex w-full flex-col items-start justify-start gap-2 overflow-y-auto px-4 pt-3"
+            data-testid="select-location-popup-results"
+          >
             {results?.map((result: any, index: number) => (
               <button
                 className="inline-flex w-full justify-between rounded-lg border-2 border-gray-600 py-2 px-2 transition hover:border-white"
+                data-testid="select-location-popup-result"
                 key={index}
                 onClick={() => {
                   handleSelection(result)
