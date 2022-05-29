@@ -27,6 +27,24 @@ jobs:
         with:
           token: ${{ github.token }}
           expire-in: 0 # Set this to 0 to delete all artifacts
+
+
+  install-playwright:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Install Playwright
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ${{ github.workspace }}/.cache/ms-playwright
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn-lock.json') }}-${{ hashFiles('**/*.{js,ts,jsx,tsx}') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn-lock.json') }}
+        run: npx playwright install chromium --with-deps
+        
   
   lint:
     runs-on: ubuntu-18.04
@@ -76,7 +94,7 @@ jobs:
 
   tests:
     timeout-minutes: 60
-    needs: [build]
+    needs: [install-playwright, build]
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -96,6 +114,7 @@ jobs:
           path: |
             ${{ github.workspace }}/node_modules
             ${{ github.workspace }}/.next
+            ${{ github.workspace }}/.cache/ms-playwright
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn-lock.json') }}-${{ hashFiles('**/*.{js,ts,jsx,tsx}') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn-lock.json') }}
