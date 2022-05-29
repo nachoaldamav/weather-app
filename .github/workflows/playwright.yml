@@ -38,12 +38,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: |
-            ${{ github.workspace }}/.cache/ms-playwright
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn-lock.json') }}-${{ hashFiles('**/*.{js,ts,jsx,tsx}') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn-lock.json') }}
+            ~/.cache/ms-playwright
       - name: Install Playwright
-        run: npx playwright install chromium --with-deps
+        run: yarn install && npx playwright install chromium --with-deps
         
   
   lint:
@@ -106,15 +103,13 @@ jobs:
           node-version: '16'
       - name: Install dependencies
         run: yarn --frozen-lockfile
-      - name: Install Playwright Browsers
-        run: npx playwright install chromium --with-deps
         
       - uses: actions/cache@v2
         with:
           path: |
             ${{ github.workspace }}/node_modules
             ${{ github.workspace }}/.next
-            ${{ github.workspace }}/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn-lock.json') }}-${{ hashFiles('**/*.{js,ts,jsx,tsx}') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn-lock.json') }}
