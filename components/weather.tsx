@@ -86,6 +86,6 @@ const components = [
 ]
 
 export default function Weather({ id }: { id: number }) {
-  const component = components.find((c) => c.ids.includes(id))
+  const component = components.find((c) => c.ids.includes(1276))
   return <AnimatePresence>{component?.component || null}</AnimatePresence>
 }
