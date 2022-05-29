@@ -1,17 +1,17 @@
 import WeatherLayout from './weatherLayout'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Particles from 'react-tsparticles'
 import { loadFull } from 'tsparticles'
 import { tsParticles } from 'tsparticles-engine'
-import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect } from 'react'
 
-export default function Rain({ factor = 1 }: { factor?: number }) {
+export default function Storm({ rain }: { rain: boolean }) {
   return (
     <WeatherLayout>
       <div className="relative h-full w-full">
         <span className="absolute inset-0 h-full w-full bg-black bg-opacity-40" />
+        <span className="lightning flashit" />
         <div className="absolute top-0 left-0 h-full w-full">
           <Image
             src="/images/clouds/1.png"
@@ -26,33 +26,31 @@ export default function Rain({ factor = 1 }: { factor?: number }) {
             layout="responsive"
           />
         </div>
-        {factor >= 1 && (
-          <div
-            className="absolute"
-            style={{
-              top: '150px',
-              left: '5px',
-              height: 'auto',
-              width: '70%',
-            }}
-          >
-            <Image
-              src="/images/clouds/2.png"
-              alt="cloudy-2"
-              width={600}
-              height={300}
-              layout="responsive"
-              objectFit="contain"
-            />
-          </div>
-        )}
-        <RainParticles factor={factor} />
+        <div
+          className="absolute"
+          style={{
+            top: '150px',
+            left: '5px',
+            height: 'auto',
+            width: '70%',
+          }}
+        >
+          <Image
+            src="/images/clouds/2.png"
+            alt="cloudy-2"
+            width={600}
+            height={300}
+            layout="responsive"
+            objectFit="contain"
+          />
+        </div>
+        {rain && <RainParticles />}
       </div>
     </WeatherLayout>
   )
 }
 
-export function RainParticles({ factor = 1 }: { factor?: number }) {
+export function RainParticles() {
   const particlesInit = async () => {
     await loadFull(tsParticles)
   }
@@ -90,10 +88,7 @@ export function RainParticles({ factor = 1 }: { factor?: number }) {
         options={{
           fullScreen: false,
           particles: {
-            number: {
-              value: factor * 50,
-              density: { enable: false, value_area: 10 },
-            },
+            number: { value: 50, density: { enable: false, value_area: 10 } },
             color: { value: '#fff' },
             shape: {
               type: 'image',

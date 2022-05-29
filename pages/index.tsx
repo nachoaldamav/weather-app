@@ -44,21 +44,9 @@ export default function HomePage({ city, region, country }: Geo) {
     }
   }, [settings])
 
-  const isDark = () => {
-    if (currentPeriod === 'day') {
-      return false
-    } else {
-      return true
-    }
-  }
+  const isDark = currentPeriod === 'day' ? false : true
 
-  const isNight = () => {
-    if (currentPeriod === 'night') {
-      return true
-    } else {
-      return false
-    }
-  }
+  const isNight = currentPeriod === 'night' ? true : false
 
   const weatherText = conditions.find((i) =>
     i.ids.includes(weatherData?.current.condition.code || 1000)
@@ -77,7 +65,7 @@ export default function HomePage({ city, region, country }: Geo) {
           type="image/png"
           sizes="72x72"
           href={`/images/weather/${weatherText?.name || 'clear'}_${
-            isNight() ? 'n' : 'd'
+            isNight ? 'n' : 'd'
           }.svg`}
         />
       </Head>
@@ -87,7 +75,7 @@ export default function HomePage({ city, region, country }: Geo) {
         <button
           data-testid="select-location-button"
           className={
-            !isDark()
+            !isDark
               ? 'inline-flex h-full w-fit items-center justify-center font-bold text-secondary'
               : 'inline-flex h-full w-fit items-center justify-center font-bold text-white'
           }
@@ -103,7 +91,7 @@ export default function HomePage({ city, region, country }: Geo) {
 
       <div
         className={
-          !isDark()
+          !isDark
             ? 'z-10 flex flex-col text-secondary'
             : 'z-10 flex flex-col text-white'
         }
@@ -112,7 +100,7 @@ export default function HomePage({ city, region, country }: Geo) {
           {(weatherData && Math.round(weatherData.current?.temp_c)) || 0}
           <span className="text-2xl font-bold">°</span>
         </h2>
-        <h4 className="text-md inline-flex w-full items-start justify-center text-center font-semibold opacity-75">
+        <h4 className="text-md inline-flex w-full items-start justify-center text-center font-semibold">
           {weatherText?.text || 'Loading...'}
         </h4>
       </div>
