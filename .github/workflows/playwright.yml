@@ -32,14 +32,14 @@ jobs:
   install-playwright:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/setup-node@v2
-        with:
-          cache: 'npm'
-          node-version: '16'
-      
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version: '16'
       
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -74,14 +74,13 @@ jobs:
   lint:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/setup-node@v2
-        with:
-          cache: 'npm'
-          node-version: '16'
-      
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version: '16'
       
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -112,7 +111,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
-          cache: 'npm'
+          cache: 'yarn'
           node-version: '16'
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -143,7 +142,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
-          cache: 'npm'
+          cache: 'yarn'
           node-version: '16'
 
       - name: Get yarn cache directory path
