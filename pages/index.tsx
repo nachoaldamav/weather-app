@@ -111,13 +111,13 @@ export default function HomePage({ city, region, country }: Geo) {
           <h5 className="flex w-1/4 flex-col gap-1 text-sm font-semibold">
             <span className="text-xs">Viento</span>
             <span className="text-lg">
-              {weatherData?.current?.wind_kph} km/h
+              {weatherData?.current?.wind_kph.toFixed(0)} km/h
             </span>
           </h5>
           <h5 className="flex w-1/4 flex-col gap-1 text-sm font-semibold">
             <span className="text-xs">Sensación Ter.</span>
             <span className="text-lg">
-              {weatherData?.current?.feelslike_c}º
+              {weatherData?.current?.feelslike_c.toFixed(0)}º
             </span>
           </h5>
         </div>
