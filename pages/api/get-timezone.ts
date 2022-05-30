@@ -24,16 +24,3 @@ export default async function getWeather(
     timeZoneId: response.data.location.tz_id,
   })
 }
-
-type CityData = {
-  country: string
-  name: string
-  lat: string
-  lng: string
-}
-
-type ComponentResponse = {
-  types: string[]
-  short_name: string
-  long_name: string
-}
