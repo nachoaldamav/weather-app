@@ -14,13 +14,17 @@ export default async function getWeather(
     return
   }
 
-  const response = await rapidInstance.get('timezone.json', {
-    params: {
-      q: latlng,
-    },
-  })
+  try {
+    const response = await rapidInstance.get('timezone.json', {
+      params: {
+        q: latlng,
+      },
+    })
 
-  res.status(200).json({
-    timeZoneId: response.data.location.tz_id,
-  })
+    res.status(200).json({
+      timeZoneId: response.data.location.tz_id,
+    })
+  } catch (error: any) {
+    res.status(500).json({ error: error.message })
+  }
 }

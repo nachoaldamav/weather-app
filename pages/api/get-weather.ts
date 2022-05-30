@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { rapidInstance } from '../../libs/apiInstance'
 
@@ -22,8 +23,8 @@ export default async function getWeather(
   try {
     const response = await rapidInstance.get('current.json', options)
     res.status(200).json(response.data)
-  } catch (error) {
+  } catch (error: any) {
     console.log('Request failed with options: ', options)
-    res.status(500).json({ error })
+    res.status(500).json({ error: error.message })
   }
 }
