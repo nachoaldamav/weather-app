@@ -46,8 +46,41 @@ test('Select city from search', async ({ page }) => {
   await popup.waitForSelector('[data-testid="select-location-popup-result"]')
   const results = await searchResult.$$('button')
   await results[1].click()
-  await delay(500)
+  await delay(1000)
   await checkLocationInLocalStorage(page, 'Barcelona')
+})
+
+test('Emulate location', async ({ browser }) => {
+  const context = await browser.newContext({
+    geolocation: {
+      latitude: 40.73061,
+      longitude: -73.935242,
+    },
+  })
+  await context.grantPermissions(['geolocation'])
+  const page = await context.newPage()
+
+  await page.goto('http://localhost:3000')
+  await delay(500)
+
+  const selectLocationButton = await page.waitForSelector(
+    '[data-testid="select-location-button"]'
+  )
+  await selectLocationButton.click()
+
+  const popup = await page.waitForSelector(
+    '[data-testid="select-location-popup"]'
+  )
+
+  const locationButton = await popup.waitForSelector(
+    '[data-testid="select-location-popup-current-position"]'
+  )
+  await locationButton.click()
+
+  // Wait for location to be updated
+  await delay(500)
+
+  await checkLocationInLocalStorage(page, 'Queens County')
 })
 
 test('Check middlewate location', async ({ page }) => {

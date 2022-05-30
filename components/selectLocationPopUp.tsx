@@ -130,6 +130,7 @@ export default function SelectLocationPopUp() {
             <button
               className="w-fit rounded-lg border border-gray-500 bg-secondary p-2"
               onClick={() => getCurrentPosition()}
+              data-testid="select-location-popup-current-position"
             >
               {loadingLocation ? <LoadingIcon /> : <LocationIcon />}
             </button>
