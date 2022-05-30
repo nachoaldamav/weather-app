@@ -57,6 +57,7 @@ type ForecastDay = {
     }
   }
   hour: Hour[]
+  astro: Astro
 }
 
 type Hour = {
@@ -84,4 +85,11 @@ type Hour = {
   chance_of_rain: number
   chance_of_snow: number
   uv: number
+}
+
+export type Astro = {
+  sunrise: string
+  sunset: string
+  moonrise: string
+  moonset: string
 }
