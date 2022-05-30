@@ -10,6 +10,9 @@
 
 App creada para la Hackathon de Midudev https://twitch.tv/midudev
 
+## Importante:
+Para probar las notificaciones en la PWA -> [Link](https://github.com/nachoaldamav/weather-app/blob/main/PWA.md)
+
 **Características**
 
  - Pre-selección de ubicación usando los middleware de Next.js
