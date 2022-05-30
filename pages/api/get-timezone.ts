@@ -21,7 +21,7 @@ export default async function getWeather(
   })
 
   res.status(200).json({
-    timeZoneId: response.data.tz_id,
+    timeZoneId: response.data.location.tz_id,
   })
 }
 
