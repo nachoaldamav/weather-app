@@ -61,7 +61,9 @@ test('Emulate location', async ({ browser }) => {
   const page = await context.newPage()
 
   await page.goto('http://localhost:3000')
-  await delay(500)
+
+  // Wait to fully load
+  await delay(1000)
 
   const selectLocationButton = await page.waitForSelector(
     '[data-testid="select-location-button"]'
