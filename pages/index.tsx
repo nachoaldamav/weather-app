@@ -21,6 +21,8 @@ export default function HomePage({ city, region, country }: Geo) {
   const currentPeriod = getCurrentPeriod(settings.timezone || null)
   const [weatherData, setWeatherData] = useState<weatherData>()
   const [forecastData, setForecastData] = useState<Forecast>()
+  const [isDark, setIsDark] = useState(false)
+  const [isNight, setIsNight] = useState(false)
 
   useEffect(() => {
     if (settings.city === '') {
@@ -30,7 +32,9 @@ export default function HomePage({ city, region, country }: Geo) {
         country,
       })
     }
-  }, [city, region, country, setSettings, settings])
+    setIsDark(currentPeriod === 'day' ? true : false)
+    setIsNight(currentPeriod === 'night' ? true : false)
+  }, [city, region, country, setSettings, settings, currentPeriod])
 
   useEffect(() => {
     async function fetchData() {
@@ -43,10 +47,6 @@ export default function HomePage({ city, region, country }: Geo) {
       fetchData()
     }
   }, [settings])
-
-  const isDark = currentPeriod === 'day' ? false : true
-
-  const isNight = currentPeriod === 'night' ? true : false
 
   const weatherText = conditions.find((i) =>
     i.ids.includes(weatherData?.current.condition.code || 1000)
@@ -75,7 +75,7 @@ export default function HomePage({ city, region, country }: Geo) {
         <button
           data-testid="select-location-button"
           className={
-            !isDark
+            isDark
               ? 'inline-flex h-full w-fit items-center justify-center font-bold text-secondary'
               : 'inline-flex h-full w-fit items-center justify-center font-bold text-white'
           }
@@ -91,7 +91,7 @@ export default function HomePage({ city, region, country }: Geo) {
 
       <div
         className={
-          !isDark
+          isDark
             ? 'z-10 flex flex-col text-secondary'
             : 'z-10 flex flex-col text-white'
         }
