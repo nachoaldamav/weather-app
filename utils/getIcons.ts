@@ -22,7 +22,7 @@ export const conditions = [
   {
     name: 'heavy_rain',
     text: 'Lluvia intensa',
-    ids: [1192, 1195],
+    ids: [1192, 1195, 1246],
   },
   {
     name: 'moderate_rain',
@@ -52,16 +52,16 @@ export const conditions = [
   {
     name: 'light_rain',
     text: 'Lluvia ligera',
-    ids: [1063, 1180, 1198, 1183],
+    ids: [1063, 1180, 1198, 1183, 1069, 1204, 1249, 1252],
   },
   {
     name: 'snow',
     text: 'Nieve',
-    ids: [1210, 1213, 1216, 1219, 1222, 1225, 1255, 1258],
+    ids: [1210, 1213, 1216, 1219, 1222, 1225, 1255, 1258, 1066, 1114],
   },
   {
     name: 'thunder_possible',
     text: 'Tormenta',
-    ids: [1276, 1282],
+    ids: [1276, 1282, 1087],
   },
 ]
