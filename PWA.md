@@ -14,7 +14,7 @@ Chromium tiene una tabla en la que se explica que el navegador limitará el "per
 | HIGH |  12|
 | MAX |  12|
 
-Como se necesita un uso muy habitual para llegar al nivel HIGH, aun así es imposible probarlo en tiempo real, salvo que se usen las herramientas de desarrollo de Chrome.
+Se necesita un uso muy habitual para llegar al nivel HIGH, aun así es imposible probarlo en tiempo real, salvo que se usen las herramientas de desarrollo de Chrome.
 
 ### *Paso 1*
 Primero hay que instalar la PWA, es necesario para que se active el "periodic sync", ya que solo funciona en PWA's

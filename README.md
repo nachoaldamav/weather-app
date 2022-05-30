@@ -10,7 +10,7 @@
 
 App creada para la Hackathon de Midudev https://twitch.tv/midudev
 
-## Importante:
+### Importante
 Para probar las notificaciones en la PWA -> [Link](https://github.com/nachoaldamav/weather-app/blob/main/PWA.md)
 
 **Características**
