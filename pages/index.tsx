@@ -101,8 +101,26 @@ export default function HomePage({ city, region, country }: Geo) {
           <span className="text-2xl font-bold">°</span>
         </h2>
         <h4 className="text-md inline-flex w-full items-start justify-center text-center font-semibold">
-          {weatherText?.text || 'Loading...'}
+          {weatherText?.text || 'Cargando...'}
         </h4>
+        <div className="mt-4 flex flex-row items-center justify-center text-center">
+          <h5 className="flex w-1/4 flex-col gap-1 text-sm font-semibold">
+            <span className="text-xs">Humedad</span>
+            <span className="text-lg">{weatherData?.current?.humidity}%</span>
+          </h5>
+          <h5 className="flex w-1/4 flex-col gap-1 text-sm font-semibold">
+            <span className="text-xs">Viento</span>
+            <span className="text-lg">
+              {weatherData?.current?.wind_kph} km/h
+            </span>
+          </h5>
+          <h5 className="flex w-1/4 flex-col gap-1 text-sm font-semibold">
+            <span className="text-xs">Sensación Ter.</span>
+            <span className="text-lg">
+              {weatherData?.current?.feelslike_c}º
+            </span>
+          </h5>
+        </div>
       </div>
       <BottomCard>
         <ForecastComponent data={forecastData} />
@@ -132,6 +150,11 @@ type weatherData = {
   current: {
     temp_c: number
     temp_f: number
+    wind_kph: number
+    wind_dir: string
+    humidity: number
+    uv: number
+    feelslike_c: number
     condition: {
       text: string
       icon: string
