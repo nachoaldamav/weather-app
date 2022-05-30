@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { rapidInstance } from '../../libs/apiInstance'
 
 export default async function getWeather(
   req: NextApiRequest,
@@ -13,17 +14,15 @@ export default async function getWeather(
     return
   }
 
-  const timestamp = new Date().getTime()
-  const milliseconds = timestamp % 1000
+  const response = await rapidInstance.get('timezone.json', {
+    params: {
+      q: latlng,
+    },
+  })
 
-  const response = await fetch(
-    `https://maps.googleapis.com/maps/api/timezone/json?location=${latlng}&timestamp=${
-      milliseconds + 1000
-    }&key=${process.env.GOOGLE_MAPS_KEY}`
-  )
-  const data = await response.json()
-
-  res.json(data)
+  res.status(200).json({
+    timeZoneId: response.data.tz_id,
+  })
 }
 
 type CityData = {
