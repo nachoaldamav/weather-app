@@ -83,6 +83,42 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Head>
             <link rel="manifest" href="/manifest.json" />
             <meta name="mobile-web-app-capable" content="yes" />
+            <title>Weather App</title>
+            <meta name="title" content="Weather App" />
+            <meta
+              name="description"
+              content="¡Comprueba el tiempo en tu zona en tiempo real!"
+            />
+            {/* Open Graph / Facebook */}
+            <meta property="og:type" content="website" />
+            <meta
+              property="og:url"
+              content="https://weather-app-srdrabx.vercel.app/"
+            />
+            <meta property="og:title" content="Weather App" />
+            <meta
+              property="og:description"
+              content="¡Comprueba el tiempo en tu zona en tiempo real!"
+            />
+            <meta
+              property="og:image"
+              content="https://weather-app-srdrabx.vercel.app/images/og-image.jpg"
+            />
+            {/* Twitter */}
+            <meta property="twitter:card" content="summary_large_image" />
+            <meta
+              property="twitter:url"
+              content="https://weather-app-srdrabx.vercel.app/"
+            />
+            <meta property="twitter:title" content="Weather App" />
+            <meta
+              property="twitter:description"
+              content="¡Comprueba el tiempo en tu zona en tiempo real!"
+            />
+            <meta
+              property="twitter:image"
+              content="https://weather-app-srdrabx.vercel.app/images/og-image.jpg"
+            />
           </Head>
           <Component {...pageProps} />
         </AppLayout>
