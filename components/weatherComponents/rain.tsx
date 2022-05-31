@@ -57,15 +57,6 @@ export function RainParticles({ factor = 1 }: { factor?: number }) {
     await loadFull(tsParticles)
   }
 
-  useEffect(() => {
-    return () => {
-      const main = document.getElementById('rain-particles')
-      if (main) {
-        main.remove()
-      }
-    }
-  }, [])
-
   return (
     <motion.span
       className="absolute top-0 left-0 h-full w-full"
