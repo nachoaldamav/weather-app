@@ -54,19 +54,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           if (installingWorker == null) {
             return
           }
-          installingWorker.onstatechange = () => {
-            if (installingWorker.state === 'installed') {
-              if (navigator.serviceWorker.controller) {
-                console.log(
-                  '[Service Worker] New or updated content is available.'
-                )
-              } else {
-                console.log(
-                  '[Service Worker] Content is now available offline!'
-                )
-              }
-            }
-          }
         }
         console.log('[Service Worker] Service worker registered!')
       })
@@ -90,6 +77,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               name="description"
               content="¡Comprueba el tiempo en tu zona en tiempo real!"
             />
+            <link rel="apple-touch-icon" href="/images/notification_icon.png" />
             {/* Open Graph / Facebook */}
             <meta property="og:type" content="website" />
             <meta
