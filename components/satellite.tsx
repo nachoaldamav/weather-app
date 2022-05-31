@@ -72,7 +72,7 @@ export default function Satellite() {
                 clipPath: clipPath,
                 background:
                   currentHour >= 18 || currentHour <= 10
-                    ? 'radial-gradient(circle at bottom, #ffd700, #ffd700)'
+                    ? 'radial-gradient(circle at center, #f04a0a, #ffd700)'
                     : 'radial-gradient(circle at center, yellow, #f4f5f5)',
                 boxShadow:
                   currentHour >= 18

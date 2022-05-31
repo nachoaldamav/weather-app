@@ -11,6 +11,7 @@ const components = [
     name: 'blizzard',
     text: 'Ventisca',
     ids: [1117],
+    component: <Snow factor={2} />,
   },
   {
     name: 'clear',
@@ -32,7 +33,7 @@ const components = [
   {
     name: 'heavy_rain',
     text: 'Lluvia intensa',
-    ids: [1192, 1195],
+    ids: [1192, 1195, 1246],
     component: <Rain factor={1.5} />,
   },
   {
@@ -45,13 +46,13 @@ const components = [
     name: 'mostly_cloudy',
     text: 'Mayormente nublado',
     ids: [1006, 1009],
-    component: <Cloudy />,
+    component: <Cloudy factor={1} />,
   },
   {
     name: 'partly_cloudy',
     text: 'Parcialmente nublado',
     ids: [1003],
-    component: <Cloudy />,
+    component: <Cloudy factor={0} />,
   },
   {
     name: 'pellets',
@@ -68,19 +69,19 @@ const components = [
   {
     name: 'light_rain',
     text: 'Lluvia ligera',
-    ids: [1063, 1180, 1198, 1183],
+    ids: [1063, 1180, 1198, 1183, 1069, 1204, 1249, 1252],
     component: <Rain factor={0.4} />,
   },
   {
     name: 'snow',
     text: 'Nieve',
-    ids: [1210, 1213, 1216, 1219, 1222, 1225, 1255, 1258],
-    component: <Snow />,
+    ids: [1210, 1213, 1216, 1219, 1222, 1225, 1255, 1258, 1066, 1114],
+    component: <Snow factor={1} />,
   },
   {
     name: 'thunder_possible',
     text: 'Tormenta',
-    ids: [1276, 1282],
+    ids: [1276, 1282, 1087],
     component: <Storm rain={false} />,
   },
 ]

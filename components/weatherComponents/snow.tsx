@@ -6,7 +6,7 @@ import { tsParticles } from 'tsparticles-engine'
 import Image from 'next/image'
 import { useEffect } from 'react'
 
-export default function Snow() {
+export default function Snow({ factor = 1 }: { factor?: number }) {
   return (
     <WeatherLayout>
       <div className="relative h-full w-full">
@@ -43,20 +43,20 @@ export default function Snow() {
             objectFit="contain"
           />
         </div>
-        <RainParticles />
+        <RainParticles factor={factor} />
       </div>
     </WeatherLayout>
   )
 }
 
-export function RainParticles() {
+export function RainParticles({ factor = 1 }: { factor?: number }) {
   const particlesInit = async () => {
     await loadFull(tsParticles)
   }
 
   useEffect(() => {
     return () => {
-      const main = document.getElementById('rain-particles')
+      const main = document.getElementById('snow-particles')
       if (main) {
         main.remove()
       }
@@ -81,14 +81,14 @@ export function RainParticles() {
       }}
     >
       <Particles
-        id="rain-particles"
+        id="snow-particles"
         className="absolute top-0 left-0 z-[3] h-full w-full"
         init={particlesInit}
         options={{
           fullScreen: false,
           particles: {
             number: {
-              value: 100,
+              value: 100 * factor,
               density: {
                 enable: false,
                 value_area: 700,

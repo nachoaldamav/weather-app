@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import WeatherLayout from './weatherLayout'
 
-export default function Cloudy() {
+export default function Cloudy({ factor = 1 }: { factor?: number }) {
   return (
     <WeatherLayout>
       <div className="relative h-full w-full opacity-75">
@@ -19,24 +19,26 @@ export default function Cloudy() {
             layout="responsive"
           />
         </div>
-        <div
-          className="absolute"
-          style={{
-            top: '150px',
-            left: '5px',
-            height: 'auto',
-            width: '70%',
-          }}
-        >
-          <Image
-            src="/images/clouds/2.png"
-            alt="cloudy-2"
-            width={600}
-            height={300}
-            layout="responsive"
-            objectFit="contain"
-          />
-        </div>
+        {factor >= 1 && (
+          <div
+            className="absolute"
+            style={{
+              top: '150px',
+              left: '5px',
+              height: 'auto',
+              width: '70%',
+            }}
+          >
+            <Image
+              src="/images/clouds/2.png"
+              alt="cloudy-2"
+              width={600}
+              height={300}
+              layout="responsive"
+              objectFit="contain"
+            />
+          </div>
+        )}
       </div>
     </WeatherLayout>
   )

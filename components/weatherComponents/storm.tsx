@@ -10,7 +10,7 @@ export default function Storm({ rain }: { rain: boolean }) {
   return (
     <WeatherLayout>
       <div className="relative h-full w-full">
-        <span className="absolute inset-0 h-full w-full bg-black bg-opacity-40" />
+        <span className="absolute inset-0 z-[4] h-full w-full bg-black bg-opacity-60" />
         <span className="lightning flashit" />
         <div className="absolute top-0 left-0 h-full w-full">
           <Image
