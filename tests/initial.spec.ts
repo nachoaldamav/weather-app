@@ -46,7 +46,7 @@ test('Select city from search', async ({ page }) => {
   await popup.waitForSelector('[data-testid="select-location-popup-result"]')
   const results = await searchResult.$$('button')
   await results[1].click()
-  await delay(1000)
+  await delay(2000)
   await checkLocationInLocalStorage(page, 'Barcelona')
 })
 
@@ -80,7 +80,7 @@ test('Emulate location', async ({ browser }) => {
   await locationButton.click()
 
   // Wait for location to be updated
-  await delay(500)
+  await delay(2000)
 
   await checkLocationInLocalStorage(page, 'Queens County')
 })
