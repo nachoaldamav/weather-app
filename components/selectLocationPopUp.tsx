@@ -58,6 +58,7 @@ export default function SelectLocationPopUp() {
   }, [q])
 
   async function handleSelection(data: CityData) {
+    setLoadingLocation(true)
     const response = await fetch(
       `/api/get-region?latlng=${data.lat},${data.lng}`
     )
@@ -74,6 +75,7 @@ export default function SelectLocationPopUp() {
     setConfig({ isOpen: false })
     setQ('')
     setResults([])
+    setLoadingLocation(false)
   }
 
   async function getCurrentPosition() {
