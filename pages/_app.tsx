@@ -83,6 +83,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Head>
             <link rel="manifest" href="/manifest.json" />
             <meta name="mobile-web-app-capable" content="yes" />
+            <meta name="theme-color" content="#181622" />
             <title>Weather App</title>
             <meta name="title" content="Weather App" />
             <meta
