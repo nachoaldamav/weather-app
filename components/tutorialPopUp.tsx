@@ -8,7 +8,7 @@ export default function Tutorial() {
   useEffect(() => {
     const weatherTutorialPopup = localStorage.getItem('weather_tutorial_popup')
 
-    if (weatherTutorialPopup !== null && weatherTutorialPopup === 'false') {
+    if (weatherTutorialPopup === null || weatherTutorialPopup === 'false') {
       setShowTutorial(false)
     }
   }, [])
@@ -82,9 +82,9 @@ function Steps({ handleClose }: any) {
         <>
           <p className="mb-2 text-lg font-semibold">¡Ya casi está!</p>
           <p className="text-sm">
-            Con está aplicación podrás ver el tiempo actual, la previsión de los
-            2 días siguientes y cosas interesantes como las fases lunares, fondo
-            dinámico o notificaciones fuera de la app.
+            Ahora podrás ver el tiempo actual, la previsión de los 2 días
+            siguientes y más cosas como las fases lunares, fondo dinámico basado
+            en la hora acutal o notificaciones fuera de la app.
           </p>
         </>
       ),
