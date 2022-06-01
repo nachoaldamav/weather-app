@@ -14,6 +14,7 @@ import getForecast, { Forecast } from '../utils/getForecast'
 import ForecastComponent from '../components/forecastComponent'
 import { conditions } from '../utils/getIcons'
 import Head from 'next/head'
+import Tutorial from '../components/tutorialPopUp'
 
 export default function HomePage({ city, region, country }: Geo) {
   const { config, setConfig } = useSelectLocation()
@@ -69,6 +70,7 @@ export default function HomePage({ city, region, country }: Geo) {
           }.svg`}
         />
       </Head>
+      <Tutorial />
       <SelectLocationPopUp />
       <InstallPrompt />
       <span className="absolute top-0 left-0 z-50 inline-flex w-full items-center justify-center pt-2 text-lg text-white">

@@ -61,6 +61,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       // Register periodic sync
       registerPeriodicSync()
     }
+
+    const weatherTutorialPopup = localStorage.getItem('weather_tutorial_popup')
+    if (weatherTutorialPopup === null) {
+      localStorage.setItem('weather_tutorial_popup', 'false')
+    }
   }, [])
 
   return (

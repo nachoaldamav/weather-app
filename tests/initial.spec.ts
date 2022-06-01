@@ -2,6 +2,11 @@ import { test, expect, Page } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3000')
+
+  // Set popup localStorage to true
+  await page.evaluate(() => {
+    localStorage.setItem('weather_tutorial_popup', 'true')
+  })
 })
 
 test('Basic test', async ({ page }) => {
