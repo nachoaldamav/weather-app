@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Chevron from './icons/chevron'
+import LoadingIcon from './icons/loading'
 
 export default function Tutorial() {
   const [showTutorial, setShowTutorial] = useState(true)
@@ -35,6 +36,22 @@ export default function Tutorial() {
 
 function Steps({ handleClose }: any) {
   const [currentStep, setCurrentStep] = useState(0)
+  const [notififications, setNotifications] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  async function handleNotifications() {
+    setLoading(true)
+
+    Notification.requestPermission((status) => {
+      if (status === 'granted') {
+        setNotifications(true)
+      }
+    }).catch((e) => {
+      console.error(e)
+    })
+
+    setLoading(false)
+  }
 
   const steps = [
     {
@@ -70,21 +87,26 @@ function Steps({ handleClose }: any) {
     {
       text: (
         <>
-          <p className="text-md mb-2">
-            Ahí podrás seleccionar la ciudad que quieras usando la ubicación
-            actual, un buscador o seleccionandola en un mapa.
-          </p>
-        </>
-      ),
-    },
-    {
-      text: (
-        <>
-          <p className="mb-2 text-lg font-semibold">¡Ya casi está!</p>
-          <p className="text-sm">
+          <p className="mb-2 text-xl font-semibold">¡Ya casi está!</p>
+          <p className="mb-4 text-sm">
             Ahora podrás ver el tiempo actual, la previsión de los 2 días
             siguientes y más cosas como las fases lunares, fondo dinámico basado
-            en la hora acutal o notificaciones fuera de la app.
+            en la hora actual o notificaciones fuera de la app.
+          </p>
+          <button
+            className="inline-flex w-fit items-center justify-center rounded-lg border-2 border-gray-600 bg-transparent py-2 px-4 text-xs font-bold text-white transition duration-150 hover:border-white"
+            onClick={async () => {
+              await handleNotifications()
+            }}
+          >
+            {loading && <LoadingIcon />}
+            {!loading && notififications
+              ? 'Notificaciones activadas'
+              : 'Activar notificaciones'}
+          </button>
+          <p className="mt-2 text-xs">
+            <span className="text-red-600">*</span> Solo se enviarán
+            notificaciones si usas la app muchas veces e instalas la PWA.
           </p>
         </>
       ),
@@ -106,7 +128,7 @@ function Steps({ handleClose }: any) {
   return (
     <div className="flex h-full w-full flex-row items-center justify-center py-4">
       <button
-        className="inline-flex w-1/4 justify-start pl-2 font-bold text-white"
+        className="inline-flex w-1/4 justify-start  font-bold text-white"
         onClick={() => handlePrev()}
       >
         <Chevron rotation={90} />
